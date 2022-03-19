@@ -622,7 +622,7 @@ ul#nav li.current a { color: #2e7c1b; }
 
 #portfolio {
    background: #ebeeee;
-   padding-top: 90px;
+   padding-top: 60px;
    padding-bottom: 60px;
 }
 #portfolio h1 {
@@ -948,7 +948,7 @@ ul#nav li.current a { color: #2e7c1b; }
  * ------------------------------------------------------------------- 
  */
 #stats {
-  background: #40c9b2;
+  background: #6EB3DE;
   padding-top: 7.2rem;
   padding-bottom: 6rem;
   text-align: center;
@@ -1022,7 +1022,7 @@ ul#nav li.current a { color: #2e7c1b; }
   color: white;
 }
 #contact .section-intro h5 {
-  color: #F06000;
+  color: #DD9F54;
 }
 #contact .section-intro p {
   color: rgba(255, 255, 255, 0.7);
@@ -1045,7 +1045,7 @@ ul#nav li.current a { color: #2e7c1b; }
   color: #FFFFFF;
 }
 .contact-info h5 {
-  color: #F06000;
+  color: #DD9F54;
 }
 
 /*#contact {
