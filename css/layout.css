@@ -171,6 +171,7 @@ header .scrolldown a:hover { color: #2e7c1b; }
    left: 0;
    top: 0;
 }
+
 .opaque { background-color: #333; }
 
 /* hide toggle button */
@@ -200,16 +201,16 @@ ul#nav li a {
    line-height: 32px;
 	text-decoration: none;
    text-align: left;
-   color: #fff;
-
-	-webkit-transition: color .2s ease-in-out;
+   color: rgb(255, 255, 255);
+  -webkit-transition: color .2s ease-in-out;
 	-moz-transition: color .2s ease-in-out;
 	-o-transition: color .2s ease-in-out;
 	-ms-transition: color .2s ease-in-out;
 	transition: color .2s ease-in-out;
 }
 
-ul#nav li a:active { background-color: transparent !important; }
+ul#nav li a:active { background: #97cea4;
+opacity: .6 }
 ul#nav li.current a { color: #2e7c1b; }
 
 
@@ -328,8 +329,8 @@ ul#nav li.current a { color: #2e7c1b; }
 
 #resume {
   background: white url(../images/bg_light.jpg) no-repeat center;
-   padding-top: 90px;
-   padding-bottom: 72px;
+   /* padding-top: 90px;
+   padding-bottom: 72px; */
 }
 
 #resume .resume-header {
