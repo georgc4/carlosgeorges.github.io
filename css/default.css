@@ -238,7 +238,7 @@ blockquote cite a:visited { color: #8B9798; border: none }
 [class*="block-"]:before,
 [class*="block-"]:after {
 	content: "";
-	display: table;
+	
 }
 
 [class*="block-"]:after {
@@ -780,7 +780,7 @@ input[type="checkbox"] { display: inline; }
 /* block grids
 --------------------------------------------------------------------- */
 .bgrid-sixths [class*="column"]   { width: 16.66667%; }
-.bgrid-quarters [class*="column"] { width: 25%; }
+.bgrid-quarters [class*="column"] { width: 25%; grid-auto-flow: row dense;}
 .bgrid-thirds [class*="column"]   { width: 33.33333%; }
 .bgrid-halves [class*="column"]   { width: 50%; }
 
@@ -914,7 +914,7 @@ properly.
 
    /* block grids on small screens */
    .s-bgrid-sixths [class*="column"]   { width: 16.66667%; }
-   .s-bgrid-quarters [class*="column"] { width: 25%; }
+   .s-bgrid-quarters [class*="column"] { width: 25%;  }
    .s-bgrid-thirds [class*="column"]   { width: 33.33333%; }
    .s-bgrid-halves [class*="column"]   { width: 50%; }
 
