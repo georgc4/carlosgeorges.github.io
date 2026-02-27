@@ -1,1025 +1,270 @@
 <!DOCTYPE html>
-<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
-
+<html lang="en">
 <head>
-
-   <!--- Basic Page Needs
-   ================================================== -->
-   <meta charset="utf-8">
-	<title>Carlos' Personal Website</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-
-   <!-- Mobile Specific Metas
-   ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<!-- CSS
-    ================================================== -->
-    
-   <link rel="stylesheet" href="css/default.css">
-	<link rel="stylesheet" href="css/layout.css">
-   <link rel="stylesheet" href="css/media-queries.css">
-   <link rel="stylesheet" href="css/magnific-popup.css">
-   <link href="css/font-awesome/css/all.css" rel="stylesheet">
-   <!-- Script
-   ================================================== -->
-	<script src="js/modernizr.js"></script>
-
-   <!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="favicon.png" >
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carlos Georges | GPU Physical Design Engineer</title>
+  <meta name="description" content="Carlos Georges — GPU Physical Design Engineer at Intel. Specializing in UPF methodology, power delivery, and AI-driven design automation. Columbia MSEE.">
+  <link rel="icon" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-   <!-- Header
-   ================================================== -->
-   <header id="home">
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">CG</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#highlights">Highlights</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-      <nav id="nav-wrap">
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content fade-in">
+      <h1 class="hero-name">Carlos Georges</h1>
+      <p class="hero-title">GPU Physical Design Engineer</p>
+      <p class="hero-tagline">Specializing in power delivery, UPF methodology, and AI-driven design automation at Intel. Columbia University MSEE.</p>
+      <div class="hero-cta">
+        <a href="files/resume.pdf" class="btn btn-primary" target="_blank">Download Resume</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
 
-         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
-	      <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title fade-in">About</h2>
+      <div class="about-grid fade-in">
+        <div class="about-image">
+          <img src="images/profilepic.jpg" alt="Carlos Georges" width="200" height="200">
+        </div>
+        <div class="about-text">
+          <p>I design and optimize GPU silicon at Intel, working across the physical design stack from power delivery and UPF methodology to signoff closure. I coordinate QoR analytics across datacenter and client GPU programs spanning hundreds of partitions, while building agentic AI frameworks to automate the chip design pipeline.</p>
+          <p>I recently earned my M.S. in Electrical Engineering from Columbia University, building on a B.S. in Computer Engineering from UNLV (3.93 GPA). My background spans hardware design, EDA tooling, and full-stack software development.</p>
+          <p>I'm driven by the intersection of silicon design and artificial intelligence &mdash; bridging industry innovation with research to push the boundaries of how chips are designed and verified.</p>
+          <div class="about-details">
+            <div class="detail">
+              <span class="detail-label">Languages</span>
+              <span class="detail-value">English (Native) &middot; Arabic (Native) &middot; Spanish (Fluent)</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-         <ul id="nav" class="nav">
-            <li class="current"><a class="smoothscroll" href="#home">Home</a></li>
-            <li><a class="smoothscroll" href="#about">About</a></li>
-	         <li><a class="smoothscroll" href="#resume">Resume</a></li>
-            <li><a class="smoothscroll" href="#portfolio">Projects</a></li>
-            <li><a class="smoothscroll" href="#activities">Activities</a></li>
-            <li><a class="smoothscroll" href="#stats">Statistics</a></li>
-            <li><a class="smoothscroll" href="#contact">Contact</a></li>
-         </ul> <!-- end #nav -->
+      <div class="skills-section fade-in">
+        <h3 class="skills-heading">Technical Skills</h3>
+        <div class="skill-group">
+          <span class="skill-label">Core</span>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">TCL</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Fusion Compiler</span>
+            <span class="skill-tag">Cadence Virtuoso</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <span class="skill-label">HDL &amp; Verification</span>
+          <div class="skill-tags">
+            <span class="skill-tag">Verilog</span>
+            <span class="skill-tag">SystemVerilog</span>
+            <span class="skill-tag">Synopsys VCS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <span class="skill-label">Programming</span>
+          <div class="skill-tags">
+            <span class="skill-tag">Perl</span>
+            <span class="skill-tag">C / C++</span>
+            <span class="skill-tag">C#</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <span class="skill-label">Domains</span>
+          <div class="skill-tags">
+            <span class="skill-tag">Physical Design</span>
+            <span class="skill-tag">UPF / Power Intent</span>
+            <span class="skill-tag">Power Delivery</span>
+            <span class="skill-tag">RTL Synthesis</span>
+            <span class="skill-tag">Timing Closure</span>
+            <span class="skill-tag">Agentic AI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      </nav> <!-- end #nav-wrap -->
+  <!-- Experience & Education -->
+  <section class="section section-alt" id="experience">
+    <div class="container">
+      <h2 class="section-title fade-in">Experience</h2>
 
-      <div class="row banner">
-         <div class="banner-text">
-            <h1 class="responsive-headline">Carlos Georges</h1>
-            <h3> <span>Student</span> | <span>Developer</span> | <span>Leader</span></h3>
-            <hr />
-            <ul class="social">
-               <li><a href="https://github.com/georgc4"><i class="fa-brands fa-github fa-lg"></i></a></li>
-               <li><a href="https://www.linkedin.com/in/georgc4/"><i class="fa-brands fa-linkedin-in fa-lg"></i></a></li>
-               <li><a href="mailto:carlos.georges@intel.com"><i class="fa-regular fa-envelope fa-lg"></i></i></a></li>
+      <div class="timeline fade-in">
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>GPU Physical Design Engineer</h3>
+              <span class="timeline-company">Intel Corporation</span>
+              <span class="timeline-date">Feb 2023 &ndash; Present</span>
+            </div>
+            <ul class="timeline-details">
+              <li>Coordinate QoR dashboard analytics across 5 project leads for datacenter and client GPU blocks spanning hundreds of partitions</li>
+              <li>Drive power closure and signoff &mdash; ECO work resolving power, reliability, and UPF failures</li>
+              <li>Automate UPF methodology including multi-well aware buffer insertion and always-on cell power delivery optimization</li>
+              <li>Lead vendor coordination for deep submicron technology bringup and EDA tool migrations</li>
+              <li>Build agentic AI framework targeting automated RTL-to-GDS design flows</li>
             </ul>
-         </div>
-      </div>
-
-      <p class="scrolldown">
-         <a class="smoothscroll" href="#about"><i class="icon-down-circle"></i></a>
-      </p>
-
-   </header> <!-- Header End -->
-
-
-<!-- about section
-   ================================================== -->
-   <section id="about">  
-      <div class="row section-intro">
-
-         <div class="col-twelve">
-
-            <h5>About</h5>
-            <h1>Let me introduce myself.</h1>
-
-            <div class="intro-info">
-
-               <img src="images/profilepic.jpg" alt="Profile Picture">
-
-               <p>Hi, I'm Carlos. I'm an EDA tools software engineer at Intel and an MSEE student at Columbia University. I have a wide range of interests in the computer engineering space ranging from VLSI design techniques to data encryption and encoding, from secure network protocols to digital signal processing.
-	       If there's silicon involved, I want to know about it! 
-	       I come from a background of teaching, my first job was as a math tutor for grades K-12 and I was a private tutor all throughout undergrad. My long-term goal is to teach and do research at the university level.</p>
-            </div>            
-
-         </div>         
-      </div> <!-- /section-intro -->
-
-      <div class="row about-content">
-
-         <div class="col-six tab-full">
-
-            <h3>Profile</h3>
-            <p>Results-oriented technical professional with experience in software, hardware, and the intersection of the two. </a></p>
-            
-            <h3>Interests</h3>
-	    <p>I am interested in ways we can continue Moore's law with new VLSI design techniques like CNTs, 3D design paradigms, and photonics. I'm also keen on robust, low-level software design (imagine designing an ISA for an Si photonics based core!). <strong>My ideal research would be developing firmware, tools, and/or verification for novel architectures.</strong></p>
-            
-            <h3>Spoken Languages</h3>
-            <strong>English</strong>: Native speaker<br>
-            <strong>Arabic</strong>: Native speaker<br>
-            <strong>Spanish</strong>: Fluent<br>
-         </div>
-
-         <div class="col-six tab-full">
-
-            <h3>Skills</h3>
-            <p>I am a confident communicator who thrives in a team. My technical skills include strong proficiency in Python, TCL, Linux command line, EDA tools like Fusion Compiler, Cadence Virtuoso, and Synopsys VCS. I am intermediate in C/C++ and Perl and HDLs </p>
-
-            <ul class="skill-bars">
-               
-               <li>
-                  <div class="progress percent100"></div>
-                  <strong>Python</strong>
-               </li>
-               <li>
-                  <div class="progress percent100"></div>
-                  <strong>TCL</strong>
-               </li>
-               <li>
-                  <div class="progress percent100"></div>
-                  <strong>Linux</strong>
-               </li>
-               <li>
-                  <div class="progress percent100"></div>
-                  <strong>EDA Tools</strong>
-               </li>
-               <li>
-                  <div class="progress percent75"></div>
-                  <strong>HDL</strong>
-               </li>
-	       <li>
-                  <div class="progress percent75"></div>
-                  <strong>Perl</strong>
-               </li>
-               
-      
-            </ul> <!-- /skill-bars -->    
-
-         </div>
-
-      </div>
-
-      <div class="row button-section">
-         <div class="col-twelve">
-            <a href="mailto:carlos.georges@intel.com" title="Contact Me" class="button button-primary">Contact me</a>
-            <a href="files/resume.pdf" title="Download Resume" class="button button-primary">Download Resume</a>
-         </div>         
-      </div>
-   </section> <!-- /process-->    
-
-
-   <!-- Resume Section
-   ================================================== -->
-   <section id="resume">
-
-      <div class="row section-intro">
-         <div class="col-twelve">
-
-            <h5>Resume</h5>
-            <h1>More of my credentials.</h1>
-
-            <p class="lead">Here are my education and experience.</p>
-
-         </div>  
-      </div><!-- /section-intro -->
-
-      <!-- Work experience 
-      ----------------------------------------------- -->
-      
-      
-      
-      <div class="row resume-timeline">
-
-        <div class="col-twelve resume-header">
-
-        <h2>Education</h2>
-
-         </div> <!-- /resume-header -->
-
-         <div class="col-twelve">
-
-            <div class="timeline-wrap">
-
-               <div class="timeline-block">
-
-                  <div class="timeline-ico">
-                     <i class="fa fa-pencil"></i>
-                  </div>
-
-                  <div class="timeline-header">
-                     <h3>Bachelor of Science - Computer Engineering</h3>
-                     <p>August 2018 - December 2022</p>
-                  </div>
-
-                  <div class="timeline-content">
-                     <h4>University of Nevada, Las Vegas</h4>
-                     <p>Earned a GPA of 3.93/4.0. Supervised the ECE lab. Led software engineering team for RebelSat student organization. Became a TA for two computer engineering courses. Received College of Engineering scholarship.</p>
-                  </div>
-
-
-            </div> <!-- /timeline-wrap -->            
-
-         </div> <!-- /col-twelve -->
-      <div class="row resume-timeline">
-
-        <div class="col-twelve resume-header">
-
-        <h2>Publications</h2>
-
-         </div> <!-- /resume-header -->
-
-         <div class="col-twelve">
-
-            <div class="timeline-wrap">
-
-               <div class="timeline-block">
-
-                  <div class="timeline-ico">
-                     <i class="fa fa-pencil"></i>
-                  </div>
-
-                  <div class="timeline-header">
-                     <h3>Exploring Anki Usage Among First-Year Medical Students During an Anatomy & Physiology Course</h3>
-                     <p>October 2023</p>
-                  </div>
-
-                  <div class="timeline-content">
-               
-                     <h4>Journal of Medical Education and Curricular Development &bull; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10563486/" target="_blank">Link</a></h4>
-		     <p>Designed, implemented, deployed and maintained a fullstack software addon to the Anki app that served to package and process usage statistics on study habits from medical students. The addon required GUI design, constructing a database schema, securely sending data to a cloud server, and using python to process and visualize statistical results. <strong>The team was selected to present this paper at the AAMC Western Group conference in 2023</strong> </p>
-                  </div>
-
-
-            </div> <!-- /timeline-wrap -->            
-
-         </div> <!-- /col-twelve -->
-         <div class="col-twelve resume-header">
-
-         <div class="col-twelve resume-header">
-
-            <h2>Experience</h2>
-
-         </div> <!-- /resume-header -->
-
-         <div class="col-twelve">
-
-            <div class="timeline-wrap">
-
-              <div class="timeline-block"> 
-
-                  <div class="timeline-ico">
-                     <i class="fa fa-briefcase"></i>
-                  </div>
-
-                  <div class="timeline-header">
-                     <h3>CAD Electronic Design Automation Software Engineer</h3>
-                     <p>Feb 2023 - Present</p>
-                  </div>
-
-                  <div class="timeline-content">
-                     <h4>Intel Corporation</h4>
-                     <p>Provide tool, flow, and methodology support for CPU design engineers. Transitioned structural design to new floorplanning flow with new features and better downstream compatibility. Continuously update and optimize flows for RTL synthesis, floorplanning, and timing. Create web indicators from JSON data for simulation results.</p>
-                  </div>
-
-               </div> <!-- /timeline-block -->
-
-              <div class="timeline-block"> 
-                  <div class="timeline-ico">
-                     <i class="fa fa-briefcase"></i>
-                  </div>
-
-                  <div class="timeline-header">
-                     <h3>CAD Electronic Design Automation Engineering Intern</h3>
-                     <p>May 2022 - Sep 2022</p>
-                  </div>
-
-                  <div class="timeline-content">
-                     <h4>Intel Corporation</h4>
-                     <p>Collaborated with physical design teams to provide tool support for Synopsys ICC products. Created a feature-rich application to convert ICC data into OAS layouts for physical design teams. Wrote harvester scripts to qualify next-generation design environments.</p>
-                  </div>
-
-               </div> <!-- /timeline-block -->
-
-
-
-               <div class="timeline-block"> 
-
-                  <div class="timeline-ico">
-                     <i class="fa fa-briefcase"></i>
-                  </div>
-
-                  <div class="timeline-header">
-                     <h3>Hardware Engineering Intern</h3>
-                     <p>January 2022 - March 2022</p>
-                  </div>
-
-                  <div class="timeline-content">
-                     <h4>Light & Wonder (formerly Scientific Games)</h4>
-                     <p>Worked in the hardware engineering department to develop and improve subsystems in electronic gaming machines. Developed a GUI in C# to program and validate FTDI embedded devices. Wrote and released firmware in C for a new MPU architecture on a lighting board. Revised board schematics, layouts, and BOM to reflect the change in parts.</p>
-                  </div>
-
-               </div> <!-- /timeline-block -->
-
-                <div class="timeline-block"> 
-
-                  <div class="timeline-ico">
-                     <i class="fa fa-briefcase"></i>
-                  </div>
-
-                  <div class="timeline-header">
-                     <h3>Laboratory Supervisor</h3>
-                     <p>March 2021 - December 2022</p>
-                  </div>
-
-                  <div class="timeline-content">
-                     <h4>UNLV Electrical and Computer Engineering Department</h4>
-                     <p>Worked under Dr. Grzegorz Chmaj to coordinate electrical and computer engineering lab sessions. Supervised the documentation, troubleshooting, and maintenance of an academic inventory of over 500 FPGA and custom microcontroller development platforms. Attended as departmental IT contact for three labs with 12-24 stations each running Windows and Linux.</p>
-                  </div>
-
-               </div> <!-- /timeline-block -->
-
-
-            </div> <!-- /timeline-wrap -->            
-
-         </div> <!-- /col-twelve -->
-         
-        
-         
-      </div> <!-- /resume-timeline -->
-   </section>
-
-
-      
-   <!-- Portfolio Section
-   ================================================== -->
-   <section id="portfolio">
-      <div class="row section-intro">
-         <div class="col-twelve">
-
-            <h5>Projects</h5>
-            <h1>Check out my creations.</h1>
-
-            <p class="lead">Click for details/demonstrations</p>
-         </div>  
-      </div><!-- /section-intro -->
-
-      <div class="row">
-
-         <div class="twelve columns collapsed">
-            <!-- class="bgrid-quarters s-bgrid-thirds cf" -->
-            <!-- portfolio-wrapper -->
-            <div id="portfolio-wrapper" class="portfolio-items" >
-
-          	   <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-01" title="">
-                        <img alt="" src="images/portfolio/boost.png">
-                        
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-          					      <h5>Boost Converter</h5>
-                              <p>Switching Mode Power Supply</p>
-          					   </div>
-                            
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                        <div class="categories"><i class="fa fa-tag"></i>CMOS, power supply, VLSI</div>
-                     </a>
-                     
-                  </div>
-                 
-          		</div> <!-- item end -->
-
-
-               <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-05" title="">
-                        <img alt="" src="images/portfolio/ankidiagram.jpg">
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-                              <h5>Anki Stat Scraper</h5>
-                              <p>Fullstack software development</p>
-                           </div>
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                        <span class="categories"><i class="fa fa-tag"></i>Database, stats analysis, TCP/IP</span>
-                     </a>
-
-                  </div>
-               </div>  <!-- item end -->
-
-               <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-02" title="">
-                        <img alt="" src="images/portfolio/smp8.png">
-                        <span class="categories"><i class="fa fa-tag"></i>microarchitecture, Verilog, FPGA</span>
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-          					      <h5>SMP8</h5>
-                              <p>8-bit microprocessor</p>
-          					   </div>
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                        
-                     </a>
-
-                  </div>
-          		</div> <!-- item end -->
-
-               <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-03" title="">
-                        <img alt="" src="images/portfolio/audio.png">
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-          					      <h5>Audio Controller</h5>
-                              <p>Digitally Controlled Filter and Amp</p>
-          					   </div>
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                        <span class="categories"><i class="fa fa-tag"></i>amplifier, filter, cmos</span>
-                     </a>
-
-                  </div>
-          		</div> <!-- item end -->
-
-               <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-04" title="">
-                        <img alt="" src="images/portfolio/fft.png">
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-          					      <h5>Fast Fourier Tranform</h5>
-                              <p>16 way FFT hardware accelerator</p>
-          					   </div>
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                        <span class="categories"><i class="fa fa-tag"></i>Verilog, DSP, FFT</span>
-                     </a>
-
-                  </div>
-          		</div> <!-- item end -->
-               <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-06" title="">
-                        <img alt="" src="images/portfolio/slot.png">
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-          					      <h5>Slot Machine</h5>
-                              <p>FPGA gaming machine</p>
-          					   </div>
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                        <span class="categories"><i class="fa fa-tag"></i>Verilog, FPGA</span>
-                     </a>
-
-                  </div>
-          		</div> <!-- item end -->
-
-               <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-07" title="">
-                        <img alt="" src="images/portfolio/suitemain.png">
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-          					      <h5>Compression Suite</h5>
-                              <p>Python application with many compression techniques</p>
-          					   </div>
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                        <span class="categories"><i class="fa fa-tag"></i>Python, Data science, GUI</span>
-                     </a>
-
-                  </div>
-          		</div> <!-- item end -->
-
-               <div class="columns portfolio-item">
-                  <div class="item-wrap">
-
-                     <a href="#modal-08" title="">
-                        <img alt="" src="images/portfolio/xpsychic.png">
-                        <div class="overlay">
-                           <div class="portfolio-item-meta">
-          					      <h5>Twitter Psychic</h5>
-                              <p>Service to provide an AI generated psychic reading based on your tweets</p>
-          					   </div>
-                        </div>
-                        <div class="link-icon"><i class="icon-plus"></i></div>
-                        <span class="categories"><i class="fa fa-tag"></i>AI, API, Software</span>
-                     </a>
-
-                  </div>
-          		</div> <!-- item end -->
-
-                  <div class="columns portfolio-item">
-                    <div class="item-wrap">
-  
-                       <a href="#modal-09" title="">
-                          <img alt="" src="images/portfolio/picar.jpg">
-                          <div class="overlay">
-                             <div class="portfolio-item-meta">
-                                      <h5>Rescue Robot</h5>
-                                <p>UNLV Senior Design Project</p>
-                                   </div>
-                          </div>
-                          <div class="link-icon"><i class="icon-plus"></i></div>
-                        <span class="categories"><i class="fa fa-tag"></i>robotics, computer vision, AI</span>
-                       </a>
-  
-                    </div>
-                    </div> 
-
-            </div> <!-- portfolio-wrapper end -->
-
-         </div> <!-- twelve columns end -->
-
-
-         <!-- Modal Popup
-	      --------------------------------------------------------------- -->
-
-         <div id="modal-01" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/boost_table.png" alt="" />
-
-		      <div class="description-box">
-			      <h4>Boost Switching Power Supply</h4>
-			      <p>A practical design, layout, and simulation of a switching power supply. The project incorporated knowledge from multiple disciplines including mixed signal circuit design, digital logic, and VLSI layout.</p>
-               <span class="categories"><i class="fa fa-tag"></i>CMOS, power supply, VLSI</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="files/boost.pdf" target="_blank">Details</a>
-               <a href="https://github.com/georgc4/boost_converter" target="_blank">View on Github</a>
-		         <a class="popup-modal-dismiss">Close</a>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>CAD EDA Engineering Intern</h3>
+              <span class="timeline-company">Intel Corporation</span>
+              <span class="timeline-date">May 2022 &ndash; Sep 2022</span>
             </div>
-
-	      </div><!-- modal-01 End -->
-
-         <div id="modal-02" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/smp8_waves.png" alt="" />
-
-		      <div class="description-box">
-			      <h4>SMP8</h4>
-			      <p>A single stage 8-bit microprocessor that supports 16 instructions including load/stores, arithmetic/logical instructions, and branches. The processor was built in Verilog HDL and verified on an FPGA development board.
-               </p>
-               <span class="categories"><i class="fa fa-tag"></i>microarchitecture, HDL, FPGA</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="files/smp8.pdf" target="_blank">Details</a>
-               <a href="https://github.com/georgc4/SMP8" target="_blank">View on Github</a>
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-
-	      </div><!-- modal-02 End -->
-
-         <div id="modal-03" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/audio.png" alt="" />
-
-		      <div class="description-box">
-			      <h4>Audio Controller</h4>
-			      <p>A multipurpose digitally controlled audio filter and amplifier. The design uses discrete transistors to implement multiplexers that select between low, mid, and high-pass audio filters. The filtered audio is then passed through a BJT amplifier for better gain.</p>
-               <span class="categories"><i class="fa fa-tag"></i>Signal processing, filtering, amplifiers, CMOS</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="files/audio.pdf" target="_blank">Details</a>
-               <a href="https://github.com/georgc4/audio_controller" target="_blank">View on Github</a>
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-
-	      </div><!-- modal-03 End -->
-
-         <div id="modal-04" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/fft_results.png" alt="" />
-
-		      <div class="description-box">
-			      <h4>Fast Fourier Transform</h4>
-			      <p>A hardware accelerator circuit designed to implement the 16-point FFT algorithm. The circuit uses SIPO and PISO registers to conserve input pins, and performs complex arithmetic with the input sequence to convert into the frequency domain. The applications are wide in digital signal processing.</p>
-               <span class="categories"><i class="fa fa-tag"></i>Photography</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="files/fft.pdf" target="_blank">Details</a>
-               <a href="https://github.com/georgc4/fft16" target="_blank">View on Github</a>
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-
-	      </div><!-- modal-04 End -->
-
-         <div id="modal-05" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/ankistats.png" alt="" />
-
-		      <div class="description-box">
-			      <h4>Anki Stat Scraper</h4>
-			      <p>Fullstack addon built for research on study habits effect on test scores</p>
-               <span class="categories"><i class="fa fa-tag"></i>Database, TCP/IP, Statistical Analysis</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="files/ankipaper.pdf" target="_blank">Details</a>
-               <a href="https://github.com/georgc4/anki-stat-scraper" target="_blank">View on Github</a>
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-
-	      </div><!-- modal-05 End -->
-
-         <div id="modal-06" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/slot.png" alt="" />
-
-		      <div class="description-box">
-			      <h4>FPGA Slot Machine</h4>
-			      <p>An electronic gaming machine developed in Verilog HDL. The game features a PS/2 mouse interface, credits, custom bets, and easily configurable odds. Check the details link for a video demonstration.</p>
-               <span class="categories"><i class="fa fa-tag"></i>EGM, HDL, Gaming</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="https://youtu.be/QFKWqm0hoVU" target="_blank">Video Presentation</a>
-               <a href="files/slot.pdf" target="_blank">Details</a>
-               <a href="https://github.com/georgc4/FPGASlotMachine" target="_blank">View on Github</a>
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-
-	      </div><!-- modal-06 End -->
-
-         <div id="modal-07" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/suiteexample.png" alt="" />
-
-		      <div class="description-box">
-			      <h4>Compression Suite</h4>
-			      <p>A python software application that provides demos of various compression techniques learned in CpE 405: Information Coding Systems. The algorithms demonstrated include Huffman tree construction, LZW encoding, and arithmetic coding.</p>
-               <span class="categories"><i class="fa fa-tag"></i>Python, Data compression, GUI</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="https://youtu.be/_iwkylu4a78" target="_blank">Video Demonstration</a>
-               <a href="https://github.com/georgc4/data_compression" target="_blank">View on Github</a>
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-
-	      </div><!-- modal-07 End -->
-
-         <div id="modal-08" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/wip.jpg" alt="" />
-
-		      <div class="description-box">
-			      <h4>Twitter Psychic</h4>
-			      <p>A Twitter bot that analyzes a user's posts with the GPT-4 LLM to generate a 'psychic' reading for the user. Requires tweet scraping, OpenAI API integration, and a frontend with payment processing. </p>
-               <span class="categories">GPT-4, Web API, Frontend</span>
-		      </div>
-
-            <div class="link-box">
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-
-	      </div><!-- modal-08 End -->
-
-
-         <div id="modal-09" class="popup-modal mfp-hide">
-
-		      <img class="scale-with-grid" src="images/portfolio/modals/picarposter.png" alt="" />
-
-		      <div class="description-box">
-			      <h4>Rescue Robot</h4>
-			      <p>A robot designed for senior capstone project intended to pick up debris in crisis situations. Uses computer vision and an AI image identification model to determine objects to pick up and locate humans in distress. Implemented with python libraries.</p>
-               <span class="categories"><i class="fa fa-tag"></i>Robotics, Python, Computer Vision</span>
-		      </div>
-
-            <div class="link-box">
-               <a href="https://youtu.be/0ofkhrMWyE4" target="_blank">NBC News Story</a>
-               <a href="https://github.com/georgc4/adeept_picarpro" target="_blank">View on Github</a>
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-              
-               
-               
-	      </div><!-- modal-08 End -->
-
-      </div> <!-- row End -->
-
-   </section> <!-- Portfolio Section End-->
-
-   <!-- activities Section
-   ================================================== -->
-   <section id="activities">
-
-      <!-- <div class="overlay"></div> -->
-
-      <div class="row section-intro">
-         <div class="col-twelve">
-
-            <h5>Activities</h5>
-            <h1>My positions during undergraduate.</h1>
-
-            <p class="lead">Summary of my leadership & extracurricular activities</p>
-
-         </div>         
-      </div> <!-- /section-intro -->
-
-      <div class="row activity">
-
-         <div class="twelve columns main-col">
-
-            <div class="row item">
-
-               <div class="twelve columns">
-
-                  <h3>Flight Software Team Leader</h3>
-                  <p class="info">RebelSat Student Organization<span>&bull;</span> <em class="date">January 2022 - Present</em></p>
-
-                  <p>
-                  Directed team in developing flight software for a CubeSat device. Used F' framework for processing telemetry data on a CubeSat device's OBC.<br>
-                  Sustained a continued relationship with NASA's JPL team to discuss their F' flight software and how to integrate it onto our mission.  <br>
-                  Coordinated with hardware teams to integrate electrical and mechanical systems both on the CubeSat device and with Ground Station teams. <br>
-                  Recruited up to 10 UNLV students into club members by explaining how their involvement can benefit both their professional developent and our cause. 
-                  </p>
-
-               </div>
-
-            </div> <!-- item end -->
-
-            <div class="row item">
-
-               <div class="twelve columns">
-
-                  <h3>Instructor</h3>
-                  <p class="info">Circuits and Electronics Workshop<span>&bull;</span> <em class="date">August 2022 - December 2022 </em></p>
-
-                  <p>Led a workshop for middle and high school students on weekends that included fundamentals of electrical and electronic circuits with
-                     an emphasis on hands on labs where students built circuits on breadboards culminating in a transistor based audio amplifier circuit.
-                     Prepared powerpoint slides, lab instructions, and materials weekly.
-                  </p>
-
-               </div>
-
-            </div> <!-- item end -->
-            <div class="row item">
-
-               <div class="twelve columns">
-
-                  <h3>Teaching Assistant</h3>
-                  <p class="info">CpE 302, EGG 202<span>&bull;</span> <em class="date">August 2021 - December 2021 </em></p>
-
-                  <p>
-                  Issued lab instructions to classes of 20+ students. Taught basics about engineering topics including semiconductor devices and MCU peripherals <br>
-                  Assisted students during lab experiments involving embedded systems. Reviewed Arduino code and helped to correct problems.<br>
-                  Graded assignments for an introductory VHDL course. Became TA during enrollment due to excelling in the course. <br>
-                  </p>
-
-               </div>
-
-            </div> <!-- item end -->
-
-            <div class="row item">
-
-               <div class="twelve columns">
-
-                  <h3>Tutor</h3>
-                  <p class="info">Various Companies, Freelance<span>&bull;</span> <em class="date">January 2018 - Present</em></p>
-
-                  <p>
-                Educated up to 15 students a week from levels Pre-K to college junior in all subjects. <br>
-                Scheduled clients on a weekly basis for myself and up to six other tutors. <br>
-                Advertised my services on many platforms and succeeded in building my own clientele as a freelancer. <br>
-                Organized and supported smooth operation of the center by cleaning up and ordering teaching resources. <br>
-
-   </p>
-
-               </div>
-
-            </div> <!-- item end -->
-
-           
-
-            <div class="row item">
-
-               <div class="twelve columns">
-
-                  <h3>Power Forward</h3>
-                  <p class="info">UNLV Intramural Men's Basketball Team<span>&bull;</span> <em class="date">October 2021 - March 2022</em></p>
-
-                  <p>
-                  Participated in rigorous basketball training and games twice every week. <br>
-                  Played basketball since elementary school, always seeking to improve my skills. <br>
-                  </p>
-
-               </div>
-
-            </div> <!-- item end -->
-
-         </div> <!-- main-col end -->
-
-      </div> <!-- End Education -->
-      
-   </section> <!-- /activities --> 
-
-
-   <!-- stats Section
-   ================================================== -->
-   <section id="stats" class="count-up">
-
-      <div class="row">
-         <div class="col-twelve">
-
-            <div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
-
-               <div class="bgrid stat">
-
-                  <div class="icon-part">
-                     <i class="fa fa-file"></i>
-                  </div>
-
-                  <h3 class="stat-count">
-                     50+
-                  </h3>
-
-                  <h5 class="stat-title">
-                     Projects Completed
-                  </h5>
-
-               </div> <!-- /stat -->               
-
-               <div class="bgrid stat">
-
-                  <div class="icon-part">
-                     <i class="fas fa-basketball-ball"></i>
-                  </div>
-
-                  <h3 class="stat-count">
-                     5000+
-                  </h3>
-
-                  <h5 class="stat-title">
-                     Baskets Made
-                  </h5>
-
-               </div> <!-- /stat -->                           
-
-               <div class="bgrid stat">
-
-                  <div class="icon-part">
-                     <i class="fa fa-lightbulb"></i>
-                  </div>
-
-                  <h3 class="stat-count">
-                     100+
-                  </h3>
-
-                  <h5 class="stat-title">
-                     Crazy Ideas
-                  </h5>
-
-               </div> <!-- /stat -->
-
-               <div class="bgrid stat">
-
-                  <div class="icon-part">
-                     <i class="fa fa-code"></i>
-                  </div>
-
-                  <h3 class="stat-count">
-                     2000+
-                  </h3>
-
-                  <h5 class="stat-title">
-                     Hours Coding
-                  </h5>
-
-               </div> <!-- /stat -->
-
-               <div class="bgrid stat">
-
-                  <div class="icon-part">
-                    <i class="fas fa-project-diagram "></i>
-                  </div>
-
-                  <h3 class="stat-count">
-                     1000+
-                  </h3>
-
-                  <h5 class="stat-title">
-                     Connections Made
-                  </h5>
-
-               </div> <!-- /stat -->
-
-               <div class="bgrid stat">
-
-                  <div class="icon-part">
-                     <i class="fa fa-coffee"></i>
-                  </div>
-
-                  <h3 class="stat-count">
-                     1000+
-                  </h3>
-
-                  <h5 class="stat-title">
-                     Cups of Coffee
-                  </h5>
-
-               </div> <!-- /stat -->
-
-            </div> <!-- /stats-list -->
-
-         </div> <!-- /twelve -->
-      </div> <!-- /row -->
-
-   </section> <!-- /stats -->
-
-
-   <!-- contact
-   ================================================== -->
-   <section id="contact">
-
-      <div class="row section-intro">
-         <div class="col-twelve">
-
-            <h5>Contact</h5>
-            <h1>I'd Love To Connect With You.</h1>
-
-            <p class="lead">Let me get to know more about you.</p>
-
-         </div> 
-      </div> <!-- /section-intro -->
-
-      <div class="row contact-info">
-
-        
-
-         <div class="col-six tab-full collapse">
-
-            <div class="icon">
-               <i class="icon-mail"></i>
-            </div>
-
-            <h5>Email Me At</h5>
-
-            <a href="mailto:carlos.georges@intel.com" >carlos.georges@intel.com</a><br>         
-            </p>
-
-         </div>
-	      
-	 <div class="col-six tab-full collapse">
-
-            <div class="icon">
-               <i class="fa-brands fa-linkedin-in"></i>
-            </div>
-
-            <h5>Let's Connect</h5>
-            <a href="https://www.linkedin.com/in/georgc4/" target="_blank">LinkedIn Profile</a>
-
-         </div>
-         
-      </div> <!-- /contact-info -->
-      
-   </section> <!-- /contact -->
-
-
-   <!-- footer
-   ================================================== -->
-   <footer>
-
-      <div class="row">
-
-         <div class="twelve columns">
-
-            <ul class="copyright">
-               <li>Edit by Carlos Georges</li>
-               
-               <li>Design by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a></li>   
+            <ul class="timeline-details">
+              <li>Collaborated with physical design teams on Synopsys ICC tool support</li>
+              <li>Built application converting ICC data into OAS layouts for physical design workflows</li>
+              <li>Wrote harvester scripts to qualify next-generation design environments</li>
             </ul>
+          </div>
+        </div>
 
-         </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Hardware Engineering Intern</h3>
+              <span class="timeline-company">Light &amp; Wonder</span>
+              <span class="timeline-date">Jan 2022 &ndash; Mar 2022</span>
+            </div>
+            <ul class="timeline-details">
+              <li>Developed subsystems for electronic gaming machines including GUI tooling in C#</li>
+              <li>Wrote and released firmware in C for a new MPU architecture</li>
+              <li>Revised board schematics, layouts, and BOM for production changes</li>
+            </ul>
+          </div>
+        </div>
 
-         <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="icon-up-open"></i></a></div>
-
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Laboratory Supervisor</h3>
+              <span class="timeline-company">UNLV ECE Department</span>
+              <span class="timeline-date">Mar 2021 &ndash; Dec 2022</span>
+            </div>
+            <ul class="timeline-details">
+              <li>Managed inventory of 500+ FPGA and microcontroller development platforms</li>
+              <li>Coordinated lab sessions and served as departmental IT contact across three labs</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-   </footer> <!-- Footer End-->
+      <h2 class="section-title fade-in" style="margin-top: 5rem;">Education</h2>
 
-   <!-- Java Script
-   ================================================== -->
-   <script src="../../ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
-   <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+      <div class="education-grid fade-in">
+        <div class="edu-card">
+          <h3>M.S. Electrical Engineering</h3>
+          <span class="edu-school">Columbia University</span>
+          <span class="edu-date">Expected 2026</span>
+        </div>
+        <div class="edu-card">
+          <h3>B.S. Computer Engineering</h3>
+          <span class="edu-school">University of Nevada, Las Vegas</span>
+          <span class="edu-date">2018 &ndash; 2022</span>
+          <span class="edu-detail">GPA: 3.93 / 4.0 &middot; College of Engineering Scholarship</span>
+        </div>
+      </div>
 
-   <script src="js/jquery.flexslider.js"></script>
-   <script src="js/waypoints.js"></script>
-   <script src="js/jquery.fittext.js"></script>
-   <script src="js/magnific-popup.js"></script>
-   <script src="js/init.js"></script>
+    </div>
+  </section>
 
+  <!-- Highlights -->
+  <section class="section" id="highlights">
+    <div class="container">
+      <h2 class="section-title fade-in">Highlights</h2>
+
+      <div class="highlights-list fade-in">
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>Published Research</h3>
+            <p>Co-authored paper in the <em>Journal of Medical Education and Curricular Development</em>. Designed and deployed a full-stack research platform from GUI to cloud pipeline. Selected to present at the AAMC Western Group conference.</p>
+            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10563486/" target="_blank" rel="noopener" class="highlight-link">Read Paper &rarr;</a>
+          </div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>Featured on NBC News</h3>
+            <p>Senior capstone rescue robot featured on NBC News &mdash; an autonomous system using computer vision and AI to detect humans and collect debris in crisis scenarios.</p>
+            <a href="https://youtu.be/0ofkhrMWyE4" target="_blank" rel="noopener" class="highlight-link">Watch Story &rarr;</a>
+          </div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>GPU Program Analytics</h3>
+            <p>Built and coordinated a QoR dashboard system across 5 project leads for Intel datacenter and client GPU blocks, spanning hundreds of partitions with week-over-week analytics driving design decisions.</p>
+          </div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>Agentic AI for Chip Design</h3>
+            <p>Building AI agent frameworks targeting automated RTL-to-GDS design flows &mdash; laying the foundation for a system that takes a design specification and outputs an optimized physical block.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section section-dark" id="contact">
+    <div class="container">
+      <h2 class="section-title fade-in">Get in Touch</h2>
+      <p class="contact-subtitle fade-in">Open to opportunities in physical design, EDA tooling, and AI-driven chip design automation.</p>
+      <div class="contact-links fade-in">
+        <a href="https://www.linkedin.com/in/georgc4/" target="_blank" rel="noopener" class="contact-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/georgc4" target="_blank" rel="noopener" class="contact-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <span>GitHub</span>
+        </a>
+        <a href="mailto:carlos.georges@intel.com" class="contact-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Email</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Carlos Georges</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
-
-
-<!-- Mirrored from web.stanford.edu/~swkang73/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 04:31:28 GMT -->
 </html>
