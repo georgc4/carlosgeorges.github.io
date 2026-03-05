@@ -166,7 +166,6 @@ a:hover {
   justify-content: center;
   background: var(--bg-dark);
   padding: 6rem 2rem;
-  text-align: center;
   position: relative;
   overflow: hidden;
 }
@@ -178,28 +177,18 @@ a:hover {
   pointer-events: none;
 }
 
-.hero-bg-photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.15;
-  filter: saturate(0.3);
-}
-
 /* Animated gradient mesh blobs */
 .hero-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   will-change: transform;
 }
 
 .hero-blob-1 {
   width: 600px;
   height: 600px;
-  background: rgba(37, 99, 235, 0.2);
+  background: rgba(37, 99, 235, 0.15);
   top: -15%;
   left: -10%;
   animation: blobDrift1 14s ease-in-out infinite alternate;
@@ -208,7 +197,7 @@ a:hover {
 .hero-blob-2 {
   width: 500px;
   height: 500px;
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(99, 102, 241, 0.1);
   bottom: -10%;
   right: -8%;
   animation: blobDrift2 18s ease-in-out infinite alternate;
@@ -217,7 +206,7 @@ a:hover {
 .hero-blob-3 {
   width: 400px;
   height: 400px;
-  background: rgba(20, 184, 166, 0.1);
+  background: rgba(20, 184, 166, 0.08);
   top: 40%;
   left: 45%;
   animation: blobDrift3 16s ease-in-out infinite alternate;
@@ -241,23 +230,13 @@ a:hover {
   100% { transform: translate(30px, -20px) scale(0.9); }
 }
 
-/* Geometric dot grid overlay */
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
-}
-
 .hero-split {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 4rem;
-  max-width: var(--max-w);
+  gap: 3.5rem;
+  max-width: 1100px;
   width: 100%;
   padding: 0 2rem;
 }
@@ -267,20 +246,23 @@ a:hover {
   min-width: 0;
 }
 
-.hero-photo {
+.hero-portrait {
   flex-shrink: 0;
-  width: 280px;
-  height: 340px;
+  width: 420px;
+  height: 480px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
-.hero-photo img {
+.hero-portrait img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
 }
 
 .hero-name {
@@ -616,9 +598,9 @@ a:hover {
     gap: 2.5rem;
   }
 
-  .hero-photo {
-    width: 200px;
-    height: 240px;
+  .hero-portrait {
+    width: 300px;
+    height: 360px;
   }
 
   .hero-tagline {
