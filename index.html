@@ -21,8 +21,8 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#about">About</a></li>
         <li><a href="#highlights">Highlights</a></li>
+        <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -40,7 +40,7 @@
       <div class="hero-content">
         <h1 class="hero-name">Carlos Georges</h1>
         <p class="hero-title">Engineer. Builder. Problem Solver.</p>
-        <p class="hero-tagline">I think in systems &mdash; from transistor-level power delivery to AI frameworks that automate the design pipeline. Currently building GPU silicon at Intel.</p>
+        <p class="hero-tagline">I work on GPU physical design methodology at Intel, focused on power delivery, signoff, and building AI into the flow.</p>
         <div class="hero-cta">
           <a href="files/resume.pdf" class="btn btn-primary" target="_blank">Download Resume</a>
           <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -53,18 +53,69 @@
     </div>
   </section>
 
+  <!-- Highlights -->
+  <section class="section" id="highlights">
+    <div class="container">
+      <h2 class="section-title fade-in">Highlights</h2>
+
+      <div class="highlights-list fade-in">
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>Power Delivery Methodology</h3>
+            <p>Custom power switch insertion to close IR drop on gated partitions, always-on cell power delivery redesign for a deep sub-micron node, and a feedthrough port optimization flow for multi-voltage partition crossings. Also cut runtime on parts of the signoff flow from hours to minutes by parallelizing file parsing and reordering execution.</p>
+          </div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>Published Research</h3>
+            <p>A research team needed a way to collect and analyze study data, and I was the only engineer around, so I built it. GUI plugin, database, analytics pipeline. Ended up co-authoring the paper in the <em>Journal of Medical Education and Curricular Development</em> and presenting at the AAMC Western Group conference.</p>
+            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10563486/" target="_blank" rel="noopener" class="highlight-link">Read Paper &rarr;</a>
+          </div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>Featured on NBC News</h3>
+            <p>Senior capstone project: an autonomous rescue robot that used computer vision and AI to find people and clear debris in disaster scenarios. Hardware, software, and a lot of real-world constraints. It got picked up by the local NBC affiliate.</p>
+            <a href="https://youtu.be/0ofkhrMWyE4" target="_blank" rel="noopener" class="highlight-link">Watch Story &rarr;</a>
+          </div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>GPU Program Analytics</h3>
+            <p>Hundreds of GPU partitions across five programs and over a hundred engineers, with no unified way to track design quality. I built a QoR dashboard system that gave the team week-over-week visibility across all of them. It became how we made design decisions.</p>
+          </div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>Recast: Dice Word Puzzle</h3>
+            <p>Built and shipped an iOS word puzzle game. You roll letter dice and build a crossword from what you get. Designed, developed, and published it myself. Paper and visualizer for the underlying algorithm are in the works.</p>
+            <a href="https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118" target="_blank" rel="noopener" class="highlight-link">Download on the App Store &rarr;</a>
+          </div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-content">
+            <h3>Agentic AI for Chip Design</h3>
+            <p>There's a lot of automation in the chip design pipeline already, but there are still gaps where engineers spend time on repetitive decisions. I'm working on an AI agent framework that takes a design spec and drives it through RTL-to-GDS, closing some of those gaps. Still early, but it's the direction things are going.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- About -->
   <section class="section" id="about">
     <div class="container">
       <h2 class="section-title fade-in">About</h2>
       <div class="about-grid fade-in">
-        <div class="about-image">
-          <img src="images/profilepic.jpg" alt="Carlos Georges">
-        </div>
         <div class="about-text">
-          <p>I build GPU silicon at Intel and think about how to make the whole process smarter. My day-to-day spans power delivery, UPF methodology, and signoff &mdash; but the part I keep coming back to is automation: building AI agent frameworks that can take a design spec and turn it into an optimized physical block without a human in the loop.</p>
-          <p>I got here through range. I started by tutoring math, built microprocessors and rescue robots in undergrad, wrote firmware for gaming machines, led flight software for a CubeSat, and shipped a research platform for a medical journal &mdash; none of which I was formally trained for. That pattern is the point: I learn whatever the problem requires, then build the system that solves it.</p>
-          <p>Columbia MSEE, UNLV Computer Engineering (3.93). Three languages. The through-line is the same whether I'm closing power on a GPU block or wiring up an AI pipeline &mdash; I want to understand the full stack, then make it better.</p>
+          <p>Before Intel I did a bit of everything. Tutored math, built microprocessors and rescue robots in undergrad, wrote firmware for gaming machines, worked on flight software for a CubeSat, and somehow ended up co-authoring a medical research paper. I tend to pick up whatever the project needs.</p>
+          <p>These days most of my time goes to power delivery methodology and signoff for Intel's GPU programs, three tapeouts so far across client and datacenter. I've been spending more of it on automation lately, building AI agent frameworks that push designs through physical implementation with less manual work.</p>
+          <p>Columbia MSEE, UNLV BS CpE. I like understanding how things work end to end, and I'm at my best when I can build something that makes a process better.</p>
           <div class="about-details">
             <div class="detail">
               <span class="detail-label">Languages</span>
@@ -83,73 +134,32 @@
             <span class="skill-tag">TCL</span>
             <span class="skill-tag">Linux</span>
             <span class="skill-tag">Fusion Compiler</span>
-            <span class="skill-tag">Cadence Virtuoso</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <span class="skill-label">HDL &amp; Verification</span>
-          <div class="skill-tags">
-            <span class="skill-tag">Verilog</span>
-            <span class="skill-tag">SystemVerilog</span>
-            <span class="skill-tag">Synopsys VCS</span>
           </div>
         </div>
         <div class="skill-group">
           <span class="skill-label">Programming</span>
           <div class="skill-tags">
-            <span class="skill-tag">Perl</span>
             <span class="skill-tag">C / C++</span>
-            <span class="skill-tag">C#</span>
+            <span class="skill-tag">Perl</span>
+            <span class="skill-tag">Verilog</span>
+            <span class="skill-tag">SystemVerilog</span>
           </div>
         </div>
         <div class="skill-group">
           <span class="skill-label">Domains</span>
           <div class="skill-tags">
             <span class="skill-tag">Physical Design</span>
-            <span class="skill-tag">UPF / Power Intent</span>
             <span class="skill-tag">Power Delivery</span>
-            <span class="skill-tag">RTL Synthesis</span>
-            <span class="skill-tag">Timing Closure</span>
+            <span class="skill-tag">UPF / Power Intent</span>
+            <span class="skill-tag">Power Gating</span>
             <span class="skill-tag">Agentic AI</span>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Highlights -->
-  <section class="section" id="highlights">
-    <div class="container">
-      <h2 class="section-title fade-in">Highlights</h2>
-
-      <div class="highlights-list fade-in">
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>Published Research</h3>
-            <p>A research team needed a data platform and I was the only engineer in the room. Built the full stack &mdash; GUI to cloud pipeline &mdash; co-authored the paper in the <em>Journal of Medical Education and Curricular Development</em>, and presented at the AAMC Western Group conference. Not my field. Didn't matter.</p>
-            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10563486/" target="_blank" rel="noopener" class="highlight-link">Read Paper &rarr;</a>
-          </div>
-        </div>
-
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>Featured on NBC News</h3>
-            <p>Senior capstone project: an autonomous rescue robot using computer vision and AI to find people and clear debris in disaster scenarios. The kind of problem where hardware, software, and real-world constraints all collide &mdash; which is exactly where I work best.</p>
-            <a href="https://youtu.be/0ofkhrMWyE4" target="_blank" rel="noopener" class="highlight-link">Watch Story &rarr;</a>
-          </div>
-        </div>
-
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>GPU Program Analytics</h3>
-            <p>Hundreds of GPU partitions across datacenter and client programs, five project leads, and no unified way to track quality. I built the QoR dashboard system that gave the team week-over-week visibility and made it the backbone of our design decisions.</p>
-          </div>
-        </div>
-
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>Agentic AI for Chip Design</h3>
-            <p>The chip design pipeline is still heavily manual. I'm building the AI agent framework to change that &mdash; a system that takes a design spec and drives it through RTL-to-GDS with minimal human intervention. Early days, but this is where silicon is headed.</p>
+        <div class="skill-group">
+          <span class="skill-label">Research</span>
+          <div class="skill-tags">
+            <span class="skill-tag">Microarchitecture Simulation</span>
+            <span class="skill-tag">Reinforcement Learning</span>
           </div>
         </div>
       </div>
@@ -160,7 +170,7 @@
   <section class="section section-dark" id="contact">
     <div class="container">
       <h2 class="section-title fade-in">Get in Touch</h2>
-      <p class="contact-subtitle fade-in">Always interested in hard problems at the intersection of silicon and AI. Let's talk.</p>
+      <p class="contact-subtitle fade-in">If you're working on something interesting, I'd like to hear about it.</p>
       <div class="contact-links fade-in">
         <a href="https://www.linkedin.com/in/georgc4/" target="_blank" rel="noopener" class="contact-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
