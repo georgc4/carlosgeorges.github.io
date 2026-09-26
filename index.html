@@ -1,200 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Carlos Georges | Engineer. Builder. Problem Solver.</title>
-  <meta name="description" content="Carlos Georges — GPU physical design engineer building at the intersection of silicon and AI. From transistors to automation frameworks, I think in systems.">
-  <link rel="icon" href="favicon.png">
+  <meta name="theme-color" content="#f4f1e9">
+  <meta name="description" content="Carlos Georges is a Linux kernel engineer at Intel. He builds systems from the hardware up: Linux platforms, RISC-V hardware, developer tools, and the occasional word game.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Carlos Georges — Engineer, from silicon to systems">
+  <meta property="og:description" content="Linux platforms, original hardware, and notes from the workbench.">
+  <meta property="og:image" content="https://carlosgeorges.com/images/hero-portrait.jpg">
+  <title>Carlos Georges — Engineer, from silicon to systems</title>
+  <link rel="canonical" href="https://carlosgeorges.com/">
+  <link rel="icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,500,0,0;9..144,600,0,0&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script defer src="/js/main.js"></script>
 </head>
 <body>
-
-  <!-- Navigation -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#hero" class="nav-logo">CG</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#highlights">Highlights</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="#top" aria-label="Carlos Georges, back to top"><span class="wordmark-mark">C<span>G</span></span><span class="wordmark-name">Carlos Georges</span></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation"><a href="#work">Work</a><a href="#notes">Notes</a><a href="#about">About</a><a class="nav-contact" href="mailto:carlos.georges@columbia.edu">Get in touch <span aria-hidden="true">↗</span></a></nav>
     </div>
-  </nav>
-
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero-bg">
-      <img src="images/header-background.jpg" alt="" class="hero-bg-photo">
-      <div class="hero-blob hero-blob-1"></div>
-      <div class="hero-blob hero-blob-2"></div>
-      <div class="hero-blob hero-blob-3"></div>
-    </div>
-    <div class="hero-split fade-in">
-      <div class="hero-content">
-        <h1 class="hero-name">Carlos Georges</h1>
-        <p class="hero-title">Engineer. Builder. Problem Solver.</p>
-        <p class="hero-tagline">I work on GPU physical design methodology at Intel, focused on power delivery, signoff, and building AI into the flow.</p>
-        <div class="hero-cta">
-          <a href="files/resume.pdf" class="btn btn-primary" target="_blank">Download Resume</a>
-          <a href="#contact" class="btn btn-outline">Get in Touch</a>
-        </div>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> Linux Kernel Engineer at Intel <span class="eyebrow-sep">/</span> California</div>
+        <h1 id="hero-title">I like making the whole thing <em>work.</em></h1>
+        <p class="hero-lede">From firmware handoff and kernel boot to graphics, test rigs, and the tools people actually use. I’m Carlos, an engineer who likes following a problem all the way through the stack.</p>
+        <div class="hero-actions"><a class="button button-dark" href="#work">Explore my work <span aria-hidden="true">↘</span></a><a class="text-link" href="/files/Carlos_Georges_Resume_2026.pdf" target="_blank" rel="noopener">Current résumé <span aria-hidden="true">↗</span></a></div>
+        <p class="hero-footnote">Currently working on Linux platform bring-up, packaging, and validation. Previously: GPU physical design and EDA methodology.</p>
       </div>
-      <div class="hero-portrait">
-        <!-- Drop hero-portrait.jpg into images/ -->
-        <img src="images/hero-portrait.jpg" alt="Carlos Georges in the lab">
+      <div class="hero-visual"><div class="photo-frame"><img src="/images/hero-portrait.jpg" alt="Portrait of Carlos Georges" width="1507" height="2009" fetchpriority="high"></div><div class="photo-index"><span>FIG. 01</span><span>Systems have layers. I work across them.</span></div><div class="hero-stamp" aria-hidden="true">HW <span>↔</span> SW</div></div>
+    </section>
+    <div class="discipline-bar"><div class="wrap discipline-inner"><span>Kernel &amp; boot</span><span class="bar-star">✳</span><span>Hardware design</span><span class="bar-star">✳</span><span>Developer tools</span><span class="bar-star">✳</span><span>Independent products</span></div></div>
+    <section class="section work-section" id="work" aria-labelledby="work-title"><div class="wrap">
+      <div class="section-head"><div><span class="section-kicker">01 / SELECTED WORK</span><h2 id="work-title">Things I’m building<span class="period">.</span></h2></div><p>Hardware, software, and the sometimes messy seam between them.</p></div>
+      <div class="project-grid">
+        <article class="project-card project-feature"><div class="project-art terminal-art" aria-hidden="true"><div class="terminal-top"><span></span><span></span><span></span><b>rv32-linux-soc / serial</b></div><div class="terminal-body"><p><i>&gt;</i> booting Linux 6.12.111</p><p><i>&gt;</i> NOR → PSRAM → SBI → kernel</p><p class="terminal-success"><i>✓</i> RV32 Linux userspace ready</p><div class="terminal-cursor"></div></div><span class="art-caption">RTL SIMULATION / SEPT 2026</span></div><div class="project-content"><div class="project-meta"><span>01 / Hardware + Linux</span><span>In progress</span></div><h3>RV32 Linux SoC</h3><p>An original RISC-V SoC that boots a real Linux image in RTL simulation. The CPU, memory system, firmware, and userspace all have to agree; getting to <code>/init</code> was the first satisfying proof that they do.</p><div class="project-links"><a href="/notes/linux-from-rtl.html">Read the note <span aria-hidden="true">↗</span></a><a href="https://github.com/georgc4/rv32-linux-soc" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a></div></div></article>
+        <article class="project-card"><div class="project-art stack-art" aria-hidden="true"><div class="stack-label">PS4 / LINUX</div><div class="stack-lines"><div><span>01</span> Firmware &amp; handoff</div><div><span>02</span> Kernel &amp; AMDGPU</div><div><span>03</span> Buildroot userspace</div><div><span>04</span> Inference experiments</div></div><span class="art-caption">AN OLD CONSOLE, A NEW PLATFORM</span></div><div class="project-content"><div class="project-meta"><span>02 / Platform bring-up</span><span>In progress</span></div><h3>Linux on a PS4</h3><p>I’m repurposing PS4 hardware as a Linux development machine, working through boot, GPU recovery, remote access, and repeatable image builds.</p><div class="project-links"><a href="/notes/ps4-linux.html">Read the note <span aria-hidden="true">↗</span></a></div></div></article>
+        <article class="project-card"><div class="project-art recast-art" aria-hidden="true"><div class="dice-board"><span>R</span><span>E</span><span>C</span><span>A</span><span>S</span><span>T</span></div><span class="art-caption">ROLL / PLACE / FIND THE WORD</span></div><div class="project-content"><div class="project-meta"><span>03 / Independent product</span><span>On the App Store</span></div><h3>Recast</h3><p>A word puzzle built around letter dice and intersecting words. I made the iOS app and the Python pipeline that designs its puzzle spaces.</p><div class="project-links"><a href="/notes/recast.html">Read the note <span aria-hidden="true">↗</span></a><a href="https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118" target="_blank" rel="noopener noreferrer">Get the app <span aria-hidden="true">↗</span></a></div></div></article>
       </div>
-    </div>
-  </section>
-
-  <!-- Highlights -->
-  <section class="section" id="highlights">
-    <div class="container">
-      <h2 class="section-title fade-in">Highlights</h2>
-
-      <div class="highlights-list fade-in">
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>Power Delivery Methodology</h3>
-            <p>Custom power switch insertion to close IR drop on gated partitions, always-on cell power delivery redesign for a deep sub-micron node, and a feedthrough port optimization flow for multi-voltage partition crossings. Also cut runtime on parts of the signoff flow from hours to minutes by parallelizing file parsing and reordering execution.</p>
-          </div>
-        </div>
-
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>Published Research</h3>
-            <p>A research team needed a way to collect and analyze study data, and I was the only engineer around, so I built it. GUI plugin, database, analytics pipeline. Ended up co-authoring the paper in the <em>Journal of Medical Education and Curricular Development</em> and presenting at the AAMC Western Group conference.</p>
-            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10563486/" target="_blank" rel="noopener" class="highlight-link">Read Paper &rarr;</a>
-          </div>
-        </div>
-
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>Featured on NBC News</h3>
-            <p>Senior capstone project: an autonomous rescue robot that used computer vision and AI to find people and clear debris in disaster scenarios. Hardware, software, and a lot of real-world constraints. It got picked up by the local NBC affiliate.</p>
-            <a href="https://youtu.be/0ofkhrMWyE4" target="_blank" rel="noopener" class="highlight-link">Watch Story &rarr;</a>
-          </div>
-        </div>
-
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>GPU Program Analytics</h3>
-            <p>Hundreds of GPU partitions across five programs and over a hundred engineers, with no unified way to track design quality. I built a QoR dashboard system that gave the team week-over-week visibility across all of them. It became how we made design decisions.</p>
-          </div>
-        </div>
-
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>Recast: Dice Word Puzzle</h3>
-            <p>Built and shipped an iOS word puzzle game. You roll letter dice and build a crossword from what you get. Designed, developed, and published it myself. Paper and visualizer for the underlying algorithm are in the works.</p>
-            <a href="https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118" target="_blank" rel="noopener" class="highlight-link">Download on the App Store &rarr;</a>
-          </div>
-        </div>
-
-        <div class="highlight-item">
-          <div class="highlight-content">
-            <h3>Agentic AI for Chip Design</h3>
-            <p>There's a lot of automation in the chip design pipeline already, but there are still gaps where engineers spend time on repetitive decisions. I'm working on an AI agent framework that takes a design spec and drives it through RTL-to-GDS, closing some of those gaps. Still early, but it's the direction things are going.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section class="section" id="about">
-    <div class="container">
-      <h2 class="section-title fade-in">About</h2>
-      <div class="about-grid fade-in">
-        <div class="about-text">
-          <p>Before Intel I did a bit of everything. Tutored math, built microprocessors and rescue robots in undergrad, wrote firmware for gaming machines, worked on flight software for a CubeSat, and somehow ended up co-authoring a medical research paper. I tend to pick up whatever the project needs.</p>
-          <p>These days most of my time goes to power delivery methodology and signoff for Intel's GPU programs, three tapeouts so far across client and datacenter. I've been spending more of it on automation lately, building AI agent frameworks that push designs through physical implementation with less manual work.</p>
-          <p>Columbia MSEE, UNLV BS CpE. I like understanding how things work end to end, and I'm at my best when I can build something that makes a process better.</p>
-          <div class="about-details">
-            <div class="detail">
-              <span class="detail-label">Languages</span>
-              <span class="detail-value">English (Native) &middot; Arabic (Native) &middot; Spanish (Fluent)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="skills-section fade-in">
-        <h3 class="skills-heading">Technical Skills</h3>
-        <div class="skill-group">
-          <span class="skill-label">Core</span>
-          <div class="skill-tags">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">TCL</span>
-            <span class="skill-tag">Linux</span>
-            <span class="skill-tag">Fusion Compiler</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <span class="skill-label">Programming</span>
-          <div class="skill-tags">
-            <span class="skill-tag">C / C++</span>
-            <span class="skill-tag">Perl</span>
-            <span class="skill-tag">Verilog</span>
-            <span class="skill-tag">SystemVerilog</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <span class="skill-label">Domains</span>
-          <div class="skill-tags">
-            <span class="skill-tag">Physical Design</span>
-            <span class="skill-tag">Power Delivery</span>
-            <span class="skill-tag">UPF / Power Intent</span>
-            <span class="skill-tag">Power Gating</span>
-            <span class="skill-tag">Agentic AI</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <span class="skill-label">Research</span>
-          <div class="skill-tags">
-            <span class="skill-tag">Microarchitecture Simulation</span>
-            <span class="skill-tag">Reinforcement Learning</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="section section-dark" id="contact">
-    <div class="container">
-      <h2 class="section-title fade-in">Get in Touch</h2>
-      <p class="contact-subtitle fade-in">If you're working on something interesting, I'd like to hear about it.</p>
-      <div class="contact-links fade-in">
-        <a href="https://www.linkedin.com/in/georgc4/" target="_blank" rel="noopener" class="contact-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          <span>LinkedIn</span>
-        </a>
-        <a href="https://github.com/georgc4" target="_blank" rel="noopener" class="contact-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          <span>GitHub</span>
-        </a>
-        <a href="mailto:carlos.georges@intel.com" class="contact-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span>Email</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026 Carlos Georges</p>
-    </div>
-  </footer>
-
-  <script src="js/main.js"></script>
+      <div class="work-more"><div><span class="mini-label">MORE EXPERIMENTS</span><p><strong>AutoSilicon</strong> lets an agent change RTL, then makes synthesis and tests decide what survives. <strong>SOAR</strong> explores agents that organize their own teams and tools under a budget.</p></div><a class="round-arrow" href="#notes" aria-label="Read more project notes">↘</a></div>
+    </div></section>
+    <section class="section notes-section" id="notes" aria-labelledby="notes-title"><div class="wrap"><div class="section-head"><div><span class="section-kicker">02 / FIELD NOTES</span><h2 id="notes-title">Notes from the workbench<span class="period">.</span></h2></div><p>Short write-ups on what I tried, what worked, and what is still open.</p></div><div class="notes-list">
+      <a class="note-row" href="/notes/linux-from-rtl.html"><span class="note-number">01</span><span class="note-main"><span class="note-category">SYSTEMS / SEPT 2026</span><strong>Getting Linux to <code>/init</code> on an SoC I designed</strong><span>A full boot through modeled flash and PSRAM, with the physical design problem still ahead.</span></span><span class="note-arrow" aria-hidden="true">↗</span></a>
+      <a class="note-row" href="/notes/ps4-linux.html"><span class="note-number">02</span><span class="note-main"><span class="note-category">LINUX / SEPT 2026</span><strong>Giving a PS4 a second job</strong><span>Bootloader, kernel, graphics, and recovery work to turn a console into a usable Linux box.</span></span><span class="note-arrow" aria-hidden="true">↗</span></a>
+      <a class="note-row" href="/notes/autosilicon.html"><span class="note-number">03</span><span class="note-main"><span class="note-category">EDA + AI / 2026</span><strong>Letting the tools judge an RTL change</strong><span>An agent proposes; lint, tests, and synthesis decide whether the experiment stays.</span></span><span class="note-arrow" aria-hidden="true">↗</span></a>
+      <a class="note-row" href="/notes/recast.html"><span class="note-number">04</span><span class="note-main"><span class="note-category">PRODUCT / 2026</span><strong>Making a word game out of dice</strong><span>Recast started with a simple rule and became an iOS app plus a puzzle-generation pipeline.</span></span><span class="note-arrow" aria-hidden="true">↗</span></a>
+      <a class="note-row" href="/notes/soar.html"><span class="note-number">05</span><span class="note-main"><span class="note-category">RESEARCH / 2026</span><strong>What if the agent team were the output?</strong><span>A research prototype that adapts its organization, tools, and evaluation while it works.</span></span><span class="note-arrow" aria-hidden="true">↗</span></a>
+    </div></div></section>
+    <section class="section about-section" id="about" aria-labelledby="about-title"><div class="wrap about-grid"><div><span class="section-kicker">03 / ABOUT</span><h2 id="about-title">A few layers<br>down<span class="period">.</span></h2><div class="about-photo" role="img" aria-label="Outdoor engineering campus scene"></div></div><div class="about-body"><p class="about-lead">I started in computer engineering because I wanted to understand the machine, not just the interface. That curiosity has taken me from RTL and physical design to Linux kernels, developer infrastructure, and a word game.</p><p>At Intel, I now work on Linux platform and pre-silicon enablement: kernels, boot flows, graphics, images, and validation that help other engineers use the hardware. Before that I spent four years in physical design and EDA, where I worked on GPU power connectivity and shared implementation flows.</p><p>Outside work, I keep taking on projects that make me cross a boundary I don’t fully understand yet. An ARM64 hypervisor fix landed in <a href="https://github.com/AsahiLinux/m1n1/pull/624" target="_blank" rel="noopener noreferrer">m1n1</a>; an original RISC-V SoC now boots Linux in simulation. The best part is usually the point where the layers finally line up.</p><div class="about-facts"><div><span>NOW</span><strong>Linux Kernel Engineer<br>Intel · 2026–present</strong></div><div><span>BEFORE</span><strong>Physical Design &amp; EDA Engineer<br>Intel · 2022–2026</strong></div><div><span>EDUCATION</span><strong>Columbia M.S. Electrical Engineering<br>UNLV B.S. Computer Engineering</strong></div></div></div></div></section>
+    <section class="contact-section" id="contact"><div class="wrap contact-inner"><div><span class="section-kicker">04 / SAY HELLO</span><h2>Working on a stubborn systems problem?</h2><p>I’d like to hear about it.</p></div><div class="contact-actions"><a class="button button-light" href="mailto:carlos.georges@columbia.edu">Email me <span aria-hidden="true">↗</span></a><div><a href="https://github.com/georgc4" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/georgc4/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 Carlos Georges</span><span>Built from curiosity and a lot of debugging.</span><a href="#top">Back to top ↑</a></div></footer>
 </body>
 </html>

@@ -1,42 +1,10 @@
-/* Carlos Georges — Site Scripts */
-
-(function () {
+(function(){
   'use strict';
-
-  // Navigation: solid background on scroll
-  const nav = document.getElementById('nav');
-  if (nav) {
-    window.addEventListener('scroll', function () {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
-  }
-
-  // Mobile menu toggle
-  const toggle = document.getElementById('nav-toggle');
-  const links = document.getElementById('nav-links');
-  if (toggle && links) {
-    toggle.addEventListener('click', function () {
-      links.classList.toggle('active');
-    });
-    links.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        links.classList.remove('active');
-      });
-    });
-  }
-
-  // Fade-in on scroll (IntersectionObserver)
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.fade-in').forEach(function (el) {
-    observer.observe(el);
-  });
-
+  const button=document.querySelector('.menu-toggle');
+  const nav=document.querySelector('.site-nav');
+  if(!button||!nav)return;
+  function closeMenu(){button.setAttribute('aria-expanded','false');button.setAttribute('aria-label','Open navigation');nav.classList.remove('open')}
+  button.addEventListener('click',function(){const open=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(open));button.setAttribute('aria-label',open?'Close navigation':'Open navigation');nav.classList.toggle('open',open)});
+  nav.querySelectorAll('a').forEach(function(link){link.addEventListener('click',closeMenu)});
+  document.addEventListener('keydown',function(event){if(event.key==='Escape')closeMenu()});
 })();
