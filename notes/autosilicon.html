@@ -1,12 +1,96 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f4f1e9"><meta name="description" content="AutoSilicon gives an agent room to experiment, then uses design tools to decide which changes earned their place."><title>Letting the tools judge an RTL change — Carlos Georges</title><link rel="canonical" href="https://carlosgeorges.com/notes/autosilicon.html"><link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,500,0,0;9..144,600,0,0&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/style.css"><script defer src="/js/main.js"></script></head>
-<body class="article-page"><a class="skip-link" href="#main">Skip to content</a><header class="site-header" id="top"><div class="wrap header-inner"><a class="wordmark" href="/" aria-label="Carlos Georges, home"><span class="wordmark-mark">C<span>G</span></span><span class="wordmark-name">Carlos Georges</span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button><nav class="site-nav" id="site-nav" aria-label="Main navigation"><a href="/#work">Work</a><a href="/#notes">Notes</a><a href="/#about">About</a><a class="nav-contact" href="mailto:carlos.georges@columbia.edu">Get in touch <span aria-hidden="true">↗</span></a></nav></div></header>
-<main id="main"><div class="wrap article-top"><a class="back-link" href="/#notes">← All notes</a></div><article><header class="wrap article-hero"><span class="article-kicker">EDA + AI / 2026</span><h1>Letting the tools judge an RTL change</h1><p class="article-deck">AutoSilicon gives an agent room to experiment, then uses design tools to decide which changes earned their place.</p><div class="article-meta"><span>CARLOS GEORGES</span><span>PROJECT NOTE · 2026</span></div></header><div class="wrap article-layout"><div class="article-body"><p>I have spent a lot of time around design flows, and I wanted to try a simple rule for AI-assisted hardware work: an agent may propose a change, but the tools get the final say. AutoSilicon is a loop that edits SystemVerilog, runs lint and tests, synthesizes the design, and keeps a change only if it improves the measured area and frequency tradeoff without breaking the hard gates.</p>
-<div class="flow" aria-label="Optimization loop"><span>Edit RTL</span><b>→</b><span>Lint + test</span><b>→</b><span>Synthesize</span><b>→</b><span>Keep or revert</span></div>
-<p>Each experiment is recorded in Git with its metrics. The loop can be stopped by a budget, and regression candidates are reverted. That makes the system more useful than a stream of plausible code: it leaves behind a trace of what was tried and why a version survived.</p>
-<h2>What the first experiment showed</h2>
-<p>The included field-oriented-control coprocessor is the initial test case. In 19 autonomous experiments, the best reported result moved synthesized area from 215,164 to 191,487 µm² and estimated Fmax from 171.2 to 187.3 MHz. That is an 11.0% area reduction and a 9.4% Fmax increase relative to its baseline in the documented frontend flow.</p>
-<div class="article-callout"><p><strong>Provenance matters here.</strong> The FOC baseline itself was created with substantial LLM assistance. I provided direction, specification format, and verification strategy. These results compare against that LLM-designed baseline; they are not a claim that an agent beat a hand-tuned production design.</p></div>
-<h2>Still to prove</h2>
-<p>The frontend loop is working. Backend place-and-route evaluation and external benchmark comparisons are still open. Those steps matter because a good synthesis number does not automatically become a good physical result. That gap is part of what makes this experiment interesting to me.</p>
-<p>The <a href="https://github.com/georgc4/autosilicon" target="_blank" rel="noopener noreferrer">repository</a> includes the harness, example design, metrics, and current limitations.</p><nav class="article-footer" aria-label="Article navigation"><a href="/#notes">← All notes</a><a href="/notes/recast.html">Next note →</a></nav></div><aside class="article-rail" aria-label="Project details"><div>PROJECT STATUS<strong>Frontend RTL and synthesis loop working. Backend physical evaluation and external benchmarks are still in progress.</strong></div><div>RELATED LINK<strong><a href="https://github.com/georgc4/autosilicon" target="_blank" rel="noopener noreferrer">Project source ↗</a></strong></div><div>TOPICS<strong>RTL · EDA · agent systems</strong></div></aside></div></article></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 Carlos Georges</span><span>Built from curiosity and a lot of debugging.</span><a href="#top">Back to top ↑</a></div></footer></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>An RTL optimization that depended on fixed-point format — Carlos Georges</title>
+  <meta name="description" content="A synthesis result looked useful in one configuration. A later format change exposed a problem with the assumption.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="An RTL optimization that depended on fixed-point format">
+  <meta property="og:description" content="A synthesis result looked useful in one configuration. A later format change exposed a problem with the assumption.">
+  <link rel="canonical" href="https://carlosgeorges.com/notes/autosilicon.html">
+  <link rel="alternate" type="application/rss+xml" title="Carlos Georges — notes" href="/feed.xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/articles.css">
+  <script defer src="/js/main.js"></script>
+</head>
+<body class="article-page" id="top">
+  <div class="reading-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="/" aria-label="Carlos Georges, home"><span class="monogram" aria-hidden="true">cg<span>.</span></span><span>Carlos Georges<span class="wordmark-subtitle">Hardware &amp; software</span></span></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="/#work"><span class="nav-number" aria-hidden="true">01</span> Projects</a><a href="/#day-job"><span class="nav-number" aria-hidden="true">02</span> Intel</a><a href="/#notes"><span class="nav-number" aria-hidden="true">03</span> Notes</a><a href="/#about"><span class="nav-number" aria-hidden="true">04</span> About</a>
+        <a href="/files/Carlos_Georges_Resume_2026.pdf" target="_blank" rel="noopener" class="nav-resume">Résumé <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap article-top"><a class="back-link" href="/#notes"><span aria-hidden="true">←</span> All notes</a><span class="article-folio">NOTE 05 / 07</span></div>
+    <article>
+      <header class="wrap article-header">
+        <p class="label article-category">AUTOSILICON / EDA + AI</p>
+        <h1>An RTL optimization that depended on fixed-point format</h1>
+        <p class="article-deck">A synthesis result looked useful in one configuration. A later format change exposed a problem with the assumption.</p>
+        <div class="article-meta"><span class="article-author">Carlos Georges</span><time datetime="2026-09-25">September 25, 2026</time><span>3 min read</span></div>
+      </header>
+      <div class="wrap article-shell">
+        <div class="article-body">
+<p>The first useful result from AutoSilicon was a smaller motor-control circuit. The more interesting part came afterward, when an optimization that worked for one fixed-point format stopped making sense for the others.</p>
+
+<p>AutoSilicon lets a coding agent modify SystemVerilog, then checks the result with Verilator, cocotb, and Yosys targeting Sky130. Each experiment gets a commit and a record of its measurements. A change survives only if it passes the checks and improves the area/frequency tradeoff. Otherwise the harness reverts it.</p>
+
+<h2 id="what-the-first-run-found">What the first run found</h2>
+
+<p>The initial design was a field-oriented motor-control coprocessor: coordinate transforms, a CORDIC, PI controllers, and PWM generation. Claude provided substantial help with the math, microarchitecture, and RTL. My part was directing the project, specifying the work, and shaping the verification strategy.</p>
+
+<p>In a recorded March run, 19 experiments produced 13 accepted changes. One revision reduced estimated cell area from 215,164 to 191,487 µm² while increasing estimated maximum frequency from 171.2 to 187.3 MHz. That is about 11% less area and 9.4% more frequency at the same historical comparison point.</p>
+
+<p>These are synthesis estimates against that initial design. They are not measurements from fabricated silicon or a completed place-and-route flow. There were also other points on the frontier with slightly higher frequency and larger area.</p>
+
+<p>Some changes were straightforward once the agent found them. Multiplication by 1023 became a shift and subtraction: <code>(v &lt;&lt; 10) - v</code>. Registers that copied values already held stable by the controller could be removed. The interesting work was checking whether the assumptions behind each simplification actually held.</p>
+
+<h2 id="a-constant-is-only-constant-within-its-format">A constant is only constant within its format</h2>
+
+<p>One experiment replaced a Clarke-transform multiplier with shifts and adds. In the tested representation, the coefficient was 18,919, which can be written as <code>2¹⁴ + 2¹¹ + 2⁹ − 2⁵ + 2³ − 1</code>. The resulting circuit was smaller.</p>
+
+<p>But the RTL was parameterized. Changing the fractional width changes the integer representation of the coefficient. The hard-coded shift sequence still multiplied by 18,919. It did not automatically become the right coefficient for another format.</p>
+
+<p>A later revision restored the multiply and selected appropriately scaled constants. The configuration sweep also exposed precision failures: the reported set had to exclude combinations that did not pass verification. A successful experiment had established something useful about one configuration, with a narrower scope than the parameterized module suggested.</p>
+
+<h2 id="the-harness-needed-engineering-too">The harness needed engineering too</h2>
+
+<p>The history also includes less glamorous repairs: preserving results across reverts, handling interrupted subprocesses, and fixing a scope check that accidentally included uncommitted working files. Those details determine whether a long run leaves evidence I can use.</p>
+
+<p>I want to extend this to more designs and eventually physical implementation. For now, the useful outcome is a working experiment loop, some concrete RTL improvements, and a much clearer idea of what each measurement does and does not establish.</p>
+
+<p class="article-sources">Sources: <a href="https://github.com/georgc4/autosilicon">AutoSilicon repository, recorded results, and methodology</a>.</p>
+          <nav class="article-pagination" aria-label="Article navigation"><a class="article-back" href="/#notes"><span aria-hidden="true">←</span> All notes</a><a class="article-next" href="/notes/recast.html"><span class="label">READ NEXT</span><strong>Choosing better puzzles for Recast</strong><span class="article-next-arrow" aria-hidden="true">↗</span></a></nav>
+        </div>
+        <aside class="article-sidebar" aria-label="Project context">
+          <nav class="article-contents" aria-label="In this note">
+            <span class="label">IN THIS NOTE</span>
+            <ol>
+              <li><a href="#what-the-first-run-found">What the first run found</a></li>
+              <li><a href="#a-constant-is-only-constant-within-its-format">A constant is only constant within its format</a></li>
+              <li><a href="#the-harness-needed-engineering-too">The harness needed engineering too</a></li>
+            </ol>
+          </nav>
+          <div><span class="label">CURRENT STATE</span><strong>Working RTL optimization harness. Historical synthesis results are bounded to verified configurations.</strong></div>
+          <div><span class="label">WORKING WITH</span><strong>SystemVerilog · Yosys · Sky130 · cocotb</strong></div>
+          <div class="article-source"><span class="label">SOURCE</span><strong><a href="https://github.com/georgc4/autosilicon" target="_blank" rel="noopener noreferrer">AutoSilicon repository <span aria-hidden="true">↗</span></a></strong></div>
+        </aside>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 Carlos Georges</span><a href="/feed.xml">Notes via RSS ↗</a><a href="#top">Back to top ↑</a></div></footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>Fixing secondary-CPU initialization in m1n1 — Carlos Georges</title>
+  <meta name="description" content="Why the timer-control register has to be restored after counter redirection and an ISB on Apple M3 and later.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Fixing secondary-CPU initialization in m1n1">
+  <meta property="og:description" content="Why the timer-control register has to be restored after counter redirection and an ISB on Apple M3 and later.">
+  <link rel="canonical" href="https://carlosgeorges.com/notes/m1n1.html">
+  <link rel="alternate" type="application/rss+xml" title="Carlos Georges — notes" href="/feed.xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/articles.css">
+  <script defer src="/js/main.js"></script>
+</head>
+<body class="article-page" id="top">
+  <div class="reading-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="/" aria-label="Carlos Georges, home"><span class="monogram" aria-hidden="true">cg<span>.</span></span><span>Carlos Georges<span class="wordmark-subtitle">Hardware &amp; software</span></span></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="/#work"><span class="nav-number" aria-hidden="true">01</span> Projects</a><a href="/#day-job"><span class="nav-number" aria-hidden="true">02</span> Intel</a><a href="/#notes"><span class="nav-number" aria-hidden="true">03</span> Notes</a><a href="/#about"><span class="nav-number" aria-hidden="true">04</span> About</a>
+        <a href="/files/Carlos_Georges_Resume_2026.pdf" target="_blank" rel="noopener" class="nav-resume">Résumé <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap article-top"><a class="back-link" href="/#notes"><span aria-hidden="true">←</span> All notes</a><span class="article-folio">NOTE 04 / 07</span></div>
+    <article>
+      <header class="wrap article-header">
+        <p class="label article-category">ARM64 / M1N1</p>
+        <h1>Fixing secondary-CPU initialization in m1n1</h1>
+        <p class="article-deck">Why the timer-control register has to be restored after counter redirection and an ISB on Apple M3 and later.</p>
+        <div class="article-meta"><span class="article-author">Carlos Georges</span><time datetime="2026-09-25">September 25, 2026</time><span>1 min read</span></div>
+      </header>
+      <div class="wrap article-shell">
+        <div class="article-body">
+<p>I contributed a small change to m1n1, the bootloader and experimentation environment used by Asahi Linux. It changes when a secondary CPU restores <code>CNTHCTL_EL2</code> during hypervisor initialization on Apple M3 and later systems.</p>
+
+<p>The final diff is four added lines and one removed line. The important part is the ordering those lines establish.</p>
+
+<h2 id="configure-the-redirection-first">Configure the redirection first</h2>
+
+<p>On these systems, counter redirection needs to be configured and visible before writing <code>CNTHCTL_EL2</code>. The old initialization path restored that register earlier. My patch moves the write after the counter-redirection setup and places an instruction synchronization barrier, <code>isb</code>, immediately before it.</p>
+
+<pre><code>// For M3 and up, CNTHCTL_EL2 must be written after the counter redirection
+sysop("isb");
+msr(CNTHCTL_EL2, info-&gt;cnthctl);</code></pre>
+
+<p>The barrier is part of the change: it establishes the required visibility before the following register write. Moving a line of C farther down the function, by itself, doesn’t express that complete requirement.</p>
+
+<p><a href="https://github.com/AsahiLinux/m1n1/pull/624">The patch was merged</a> on July 15, 2026. Its scope is specific: secondary-CPU hypervisor initialization in m1n1 on the affected Apple systems. The result is a short piece of code where the hardware requirement, synchronization point, and register write now appear together.</p>
+          <nav class="article-pagination" aria-label="Article navigation"><a class="article-back" href="/#notes"><span aria-hidden="true">←</span> All notes</a><a class="article-next" href="/notes/autosilicon.html"><span class="label">READ NEXT</span><strong>An RTL optimization that depended on fixed-point format</strong><span class="article-next-arrow" aria-hidden="true">↗</span></a></nav>
+        </div>
+        <aside class="article-sidebar" aria-label="Project context">
+          <nav class="article-contents" aria-label="In this note">
+            <span class="label">IN THIS NOTE</span>
+            <ol>
+              <li><a href="#configure-the-redirection-first">Configure the redirection first</a></li>
+            </ol>
+          </nav>
+          <div><span class="label">CURRENT STATE</span><strong>Merged into AsahiLinux/m1n1 on July 15, 2026.</strong></div>
+          <div><span class="label">WORKING WITH</span><strong>C · ARM64 · EL2 · synchronization</strong></div>
+          <div class="article-source"><span class="label">SOURCE</span><strong><a href="https://github.com/AsahiLinux/m1n1/pull/624" target="_blank" rel="noopener noreferrer">Merged pull request <span aria-hidden="true">↗</span></a></strong></div>
+        </aside>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 Carlos Georges</span><a href="/feed.xml">Notes via RSS ↗</a><a href="#top">Back to top ↑</a></div></footer>
+</body>
+</html>

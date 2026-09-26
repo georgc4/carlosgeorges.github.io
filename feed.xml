@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0">
+  <channel>
+    <title>Carlos Georges — notes</title>
+    <link>https://carlosgeorges.com/#notes</link>
+    <description>Hardware, Linux, and the details worth writing down.</description>
+    <language>en-us</language>
+    <item>
+      <title>Linux printed “ready.” The shell still didn’t work.</title>
+      <link>https://carlosgeorges.com/notes/linux-from-rtl.html</link>
+      <guid>https://carlosgeorges.com/notes/linux-from-rtl.html</guid>
+      <description>A CSR write latched a live interrupt bit and left the shell stuck. I fixed it and checked the result over UART.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>A smaller TLB made my Linux machine slower.</title>
+      <link>https://carlosgeorges.com/notes/smaller-tlb.html</link>
+      <guid>https://carlosgeorges.com/notes/smaller-tlb.html</guid>
+      <description>An 8-entry TLB used 11.5% less mapped cell area than the 16-entry version, but the same run took about 32% more cycles.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>GPU inference on a PS4</title>
+      <link>https://carlosgeorges.com/notes/ps4-linux.html</link>
+      <guid>https://carlosgeorges.com/notes/ps4-linux.html</guid>
+      <description>How I set up recoverable Linux on a PS4 and got Vulkan inference to return the expected output for short prompts.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Fixing secondary-CPU initialization in m1n1</title>
+      <link>https://carlosgeorges.com/notes/m1n1.html</link>
+      <guid>https://carlosgeorges.com/notes/m1n1.html</guid>
+      <description>Why the timer-control register has to be restored after counter redirection and an ISB on Apple M3 and later.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>An RTL optimization that depended on fixed-point format</title>
+      <link>https://carlosgeorges.com/notes/autosilicon.html</link>
+      <guid>https://carlosgeorges.com/notes/autosilicon.html</guid>
+      <description>A synthesis result looked useful in one configuration. A later format change exposed a problem with the assumption.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Choosing better puzzles for Recast</title>
+      <link>https://carlosgeorges.com/notes/recast.html</link>
+      <guid>https://carlosgeorges.com/notes/recast.html</guid>
+      <description>How I choose dice that support different ways to play and keep Daily puzzle data consistent.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Tracing failures in dynamic agent teams</title>
+      <link>https://carlosgeorges.com/notes/soar.html</link>
+      <guid>https://carlosgeorges.com/notes/soar.html</guid>
+      <description>How SOAR records delegation and tool use so I can tell where a run stopped.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

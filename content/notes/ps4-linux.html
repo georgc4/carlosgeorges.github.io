@@ -1,0 +1,29 @@
+<p>I’m turning a PS4 into a Linux inference machine. It brings together several things I work on: getting hardware to boot, building the userspace around it, recovering when an experiment fails, and following GPU problems far enough to understand what actually ran.</p>
+
+<p>The project builds on the community’s PS4 Linux and loader work. My work has been in the build and deployment system, loader diagnostics, kernel handoff, recoverable root filesystems, and the path from an initialized GPU to an inference result.</p>
+
+<h2>First, make the machine usable</h2>
+
+<p>I built a pinned cross-build environment that runs natively in ARM64 Linux containers and produces an x86-64 kernel and Buildroot userspace. Keeping the source, configuration, and output identities together makes it possible to tell which image is actually on the console.</p>
+
+<p>One early boot problem came from allocating a large contiguous image. I extended the loader’s diagnostics and changed image staging to use smaller chunks. That got the kernel and userspace onto the hardware. The next problem was making subsequent experiments practical.</p>
+
+<p>I added A/B root-image trials with checks for storage, networking, and SSH before a candidate becomes the accepted slot. Kernel handoff needed its own work: the PS4’s devices don’t automatically arrive in the state the next Linux kernel expects. The patches cover shutdown ordering, stale IOMMU translation, and GPU recovery. Repeated Linux-to-Linux transitions eventually returned with display initialization, GPU ring checks, and SSH working.</p>
+
+<p>Those results made it possible to spend more time on inference while retaining a way back after a bad change. They also gave the GPU experiments a starting condition I could check.</p>
+
+<h2>From ring checks to the right answer</h2>
+
+<p>The CPU baseline came first: a pinned small model, deterministic output checks, and repeated measurements at several thread counts. The highest thread count was slower at generation, so adding threads wasn’t an automatic win.</p>
+
+<p>For the GPU, a successful kernel self-test was only the beginning. Userspace compute, copying the result back, and executing model operations each revealed additional problems. I worked through targeted compute and transfer cases before comparing the model’s intermediate results between CPU and GPU.</p>
+
+<p>That comparison narrowed a major error to a change in matrix-operation dispatch. A smaller numerical difference also mattered: CPU and GPU input arithmetic could shift the final token ranking. The trial implementation combines narrower dispatches, a simpler attention path, and matching input rounding for the affected projection.</p>
+
+<p>The current milestone is concrete: <strong>all 25 model layers offloaded to Vulkan, with the exact expected short-prompt output reproduced in two runs</strong>. The checksums and post-run hardware checks passed for those runs.</p>
+
+<h2>Longer input is still open</h2>
+
+<p>The next larger prompt exposed a GPU fault during prefill, before any answer was generated. A recovery attempt didn’t restore the machine. So the accepted result is still bounded to the tested short prompt; long-input correctness and robust recovery need more work.</p>
+
+<p>I can now get a model through the full GPU path on this console and compare its output with a known result. The next step is to extend that evidence across larger inputs and more prompts, then measure performance with a configuration that survives them.</p>

@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "linux-from-rtl",
+    "title": "Linux printed “ready.” The shell still didn’t work.",
+    "deck": "A CSR write latched a live interrupt bit and left the shell stuck. I fixed it and checked the result over UART.",
+    "category": "RISC-V / DEBUGGING",
+    "topic": "systems",
+    "excerpt": "A live interrupt bit was latched during a CSR write. After the fix, the shell accepted a command over UART.",
+    "status": "Interactive BusyBox ash and a separate program pass in full RTL simulation. Physical implementation is still open.",
+    "tools": "Verilog · Sv32 · SBI · Linux · Verilator",
+    "source_url": "https://github.com/georgc4/rv32-linux-soc/commit/14ad34905263d304b7d16d21bc69d6d8eb9e3188",
+    "source_label": "Full acceptance result",
+    "date": "2026-09-25"
+  },
+  {
+    "slug": "smaller-tlb",
+    "title": "A smaller TLB made my Linux machine slower.",
+    "deck": "An 8-entry TLB used 11.5% less mapped cell area than the 16-entry version, but the same run took about 32% more cycles.",
+    "category": "HARDWARE / TRADEOFFS",
+    "topic": "systems",
+    "excerpt": "11.5% less mapped cell area, about 32% more cycles to the same result.",
+    "status": "Both 16- and 8-entry variants pass the shell/program gate. No routed SoC GDS from the physical campaign.",
+    "tools": "Yosys · SKY130 · Sv32 · serial memory",
+    "source_url": "https://github.com/georgc4/rv32-linux-soc/blob/d514b60a9cb7759708655aba5d0c67d4ea8b261d/experiments/RESULTS.md",
+    "source_label": "Experiment results",
+    "date": "2026-09-25"
+  },
+  {
+    "slug": "ps4-linux",
+    "title": "GPU inference on a PS4",
+    "deck": "How I set up recoverable Linux on a PS4 and got Vulkan inference to return the expected output for short prompts.",
+    "category": "PS4 / GPU COMPUTE",
+    "topic": "systems",
+    "excerpt": "GPU offload passes the tested short prompt. Longer prefill still faults.",
+    "status": "All 25 model layers offload with exact expected output in the tested short-prompt case. Longer prefill still faults.",
+    "tools": "Buildroot · Linux · AMDGPU · Vulkan",
+    "source_url": "",
+    "source_label": "",
+    "date": "2026-09-25"
+  },
+  {
+    "slug": "m1n1",
+    "title": "Fixing secondary-CPU initialization in m1n1",
+    "deck": "Why the timer-control register has to be restored after counter redirection and an ISB on Apple M3 and later.",
+    "category": "ARM64 / M1N1",
+    "topic": "systems",
+    "excerpt": "I moved one timer-control register write to the correct point in the setup sequence. The fix is merged upstream.",
+    "status": "Merged into AsahiLinux/m1n1 on July 15, 2026.",
+    "tools": "C · ARM64 · EL2 · synchronization",
+    "source_url": "https://github.com/AsahiLinux/m1n1/pull/624",
+    "source_label": "Merged pull request",
+    "date": "2026-09-25"
+  },
+  {
+    "slug": "autosilicon",
+    "title": "An RTL optimization that depended on fixed-point format",
+    "deck": "A synthesis result looked useful in one configuration. A later format change exposed a problem with the assumption.",
+    "category": "AUTOSILICON / EDA + AI",
+    "topic": "experiments",
+    "excerpt": "The measured result held for one configuration. Changing the fixed-point format required a correction.",
+    "status": "Working RTL optimization harness. Historical synthesis results are bounded to verified configurations.",
+    "tools": "SystemVerilog · Yosys · Sky130 · cocotb",
+    "source_url": "https://github.com/georgc4/autosilicon",
+    "source_label": "AutoSilicon repository",
+    "date": "2026-09-25"
+  },
+  {
+    "slug": "recast",
+    "title": "Choosing better puzzles for Recast",
+    "deck": "How I choose dice that support different ways to play and keep Daily puzzle data consistent.",
+    "category": "RECAST / PUZZLE DESIGN",
+    "topic": "product",
+    "excerpt": "Current work on selecting letter dice, reviewing word sets, and scheduling Daily puzzles.",
+    "status": "Solo game available on the App Store. The newer curation and scheduling work is subsequent development.",
+    "tools": "SwiftUI · Python · solvers · scoring",
+    "source_url": "https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118",
+    "source_label": "Recast on the App Store",
+    "date": "2026-09-25"
+  },
+  {
+    "slug": "soar",
+    "title": "Tracing failures in dynamic agent teams",
+    "deck": "How SOAR records delegation and tool use so I can tell where a run stopped.",
+    "category": "SOAR / AGENT SYSTEMS",
+    "topic": "experiments",
+    "excerpt": "Clear worker traces make delegation and tool discovery failures easier to diagnose.",
+    "status": "Research prototype with small exploratory evaluations. No claim of general benchmark superiority.",
+    "tools": "Python · async execution · SQLite · evaluation",
+    "source_url": "https://github.com/georgc4/soar",
+    "source_label": "SOAR repository",
+    "date": "2026-09-25"
+  }
+]

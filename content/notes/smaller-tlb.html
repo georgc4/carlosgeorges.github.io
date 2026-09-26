@@ -1,0 +1,34 @@
+<p>A Linux-capable core is an awkward thing to squeeze into a small chip allocation. My RV32 SoC could boot and run a program in simulation, but the first physical-design attempt ran out of room during detailed placement. The next question was which hardware to shrink, and what that would cost when Linux ran.</p>
+
+<p>The Sv32 translation unit was a substantial part of the design. Its 16-entry TLB stores recent virtual-to-physical translations so the machine can avoid walking page tables for every access. In the baseline mapped netlist, the adapter occupied about 63,361 µm² of standard cells. That made it a useful place to start.</p>
+
+<h2>Half the entries, a longer boot</h2>
+
+<p>I parameterized the TLB and measured each version with the same Yosys/SKY130 mapping screen. Then I ran the full Linux image through the real serial-memory path and waited for BusyBox ash to execute the acceptance program.</p>
+
+<table>
+  <caption>Matched mapping screen and full serial Linux acceptance</caption>
+  <thead><tr><th scope="col">TLB</th><th scope="col">Mapped cell area</th><th scope="col">Shell + program</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">16 entries</th><td>225,060.9 µm²</td><td>13.01 billion cycles</td></tr>
+    <tr><th scope="row">8 entries</th><td>199,111.0 µm²</td><td>17.22 billion cycles</td></tr>
+  </tbody>
+</table>
+
+<p>The smaller TLB saved <strong>11.5% of mapped cell area</strong>, while the accepted boot and program run took about <strong>32% more cycles</strong>. Both completed the same functional gate. Those are the two numbers I need together when deciding whether the space is worth it.</p>
+
+<p>Translation misses are especially interesting here because page-table walks share the same serial PSRAM path as instruction fetches and data accesses. A full-word quad read already takes 56 core cycles in serial shift states, before the rest of the transaction overhead. The machine has no instruction cache. Extra memory work has somewhere expensive to go.</p>
+
+<h2>Sharing hardware has a price, too</h2>
+
+<p>I also tried a four-entry TLB with shared address-space context, shared division logic, and a single register-file read port. The <a href="https://github.com/georgc4/rv32-linux-soc/commit/32fa3135b7d04ffde5a0b4f424d9d42f5a9fc43a">read-port change</a> replaces two read muxes with one and adds an operand-read cycle to the core’s state machine. The focused core test grew from 795 to 867 cycles for the same 85 retired instructions.</p>
+
+<p>The smallest screened variant cut mapped area by 23.7%. Its full Linux run hadn’t reached userspace within the twenty-billion-cycle limit. Several four-entry variants did reach the shell, but timed out before the acceptance program returned. I’m keeping those outcomes distinct: reaching a timeout after a working shell doesn’t establish a functional bug, and it doesn’t satisfy the complete gate either.</p>
+
+<h2>The layout still has to fit</h2>
+
+<figure><img src="/images/projects/rv32-placement-density.png" alt="Global-placement density heatmap for the initial RV32 8 by 2 physical attempt" width="2380" height="595" loading="lazy"><figcaption>Approximate cell density after global placement in the initial 8×2 physical attempt. Detailed placement later failed; this is an intermediate result.</figcaption></figure>
+
+<p>Mapped cell area is an early measurement. Placement repair, clock distribution, hold fixing, and routing add their own constraints. Some of the smaller variants got as far as global routing, then failed placement during antenna repair. An official physical run inserted thousands of hold buffers before legalization failed. There’s still no routed SoC GDS from this campaign.</p>
+
+<p>The <a href="https://github.com/georgc4/rv32-linux-soc/blob/d514b60a9cb7759708655aba5d0c67d4ea8b261d/experiments/RESULTS.md">experiment results</a> keep the area, physical outcome, and Linux outcome beside each other. I’m using that record to choose the next design point: one that fits physically and still gets through a real shell interaction.</p>

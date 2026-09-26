@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="560" viewBox="0 0 640 560" fill="none" role="img" aria-labelledby="layout-title layout-description">
+  <title id="layout-title">A view into the silicon</title>
+  <desc id="layout-description">An original conceptual integrated circuit layout: six dense blocks of cells, memory arrays, orthogonal routing in green, cyan, magenta, red, blue and yellow, and a ring of perimeter connections. This is an illustration, not a measured chip layout.</desc>
+  <defs>
+    <pattern id="fine-grid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M16 0H0V16" stroke="#181818" stroke-width=".5"/>
+    </pattern>
+    <pattern id="major-grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <rect width="80" height="80" fill="url(#fine-grid)"/>
+      <path d="M80 0H0V80" stroke="#303030" stroke-width=".7"/>
+    </pattern>
+    <pattern id="cells-green" width="31" height="10" patternUnits="userSpaceOnUse">
+      <path d="M0 1H31M0 9H31" stroke="#00ff00" stroke-width=".65" opacity=".65"/>
+      <path d="M1 2h5v6H1zm8 0h8v6H9zm11 0h9v6h-9z" stroke="#00ff00" stroke-width=".55"/>
+      <path d="M4 3v4m9-4v4m12-4v4" stroke="#ffff00" stroke-width=".6"/>
+    </pattern>
+    <pattern id="cells-blue" width="28" height="9" patternUnits="userSpaceOnUse">
+      <path d="M0 .5H28M0 8.5H28" stroke="#3355ff" stroke-width=".7"/>
+      <path d="M1 2h7v5H1zm10 0h5v5h-5zm8 0h7v5h-7z" stroke="#00ffff" stroke-width=".5" opacity=".7"/>
+      <path d="M4 2v5m10-5v5m8-5v5" stroke="#3355ff" stroke-width=".6"/>
+    </pattern>
+    <pattern id="cells-pink" width="23" height="11" patternUnits="userSpaceOnUse">
+      <path d="M0 1H23M0 10H23" stroke="#ff00ff" stroke-width=".6" opacity=".85"/>
+      <path d="M1 3h5v5H1zm8 0h12v5H9z" stroke="#ff00ff" stroke-width=".6"/>
+      <path d="M12 3v5m5-5v5" stroke="#ff00ff" stroke-width=".55"/>
+    </pattern>
+    <pattern id="memory" width="6" height="8" patternUnits="userSpaceOnUse">
+      <rect x=".75" y="1" width="4.5" height="6" fill="#080808" stroke="#3355ff" stroke-width=".45"/>
+      <path d="M3 1v6M.75 4h4.5" stroke="#00ffff" stroke-width=".35" opacity=".65"/>
+    </pattern>
+    <pattern id="memory-pink" width="7" height="8" patternUnits="userSpaceOnUse">
+      <rect x="1" y="1" width="5" height="6" fill="#080808" stroke="#ff00ff" stroke-width=".45"/>
+      <path d="M3.5 1v6M1 4h5" stroke="#3355ff" stroke-width=".45"/>
+    </pattern>
+    <pattern id="pins-horizontal" width="12" height="16" patternUnits="userSpaceOnUse">
+      <path d="M3 1h6v14H3z" fill="#080808" stroke="#00ff00" stroke-width=".65"/>
+      <path d="M6 3v10" stroke="#ffff00" stroke-width=".7"/>
+    </pattern>
+    <pattern id="pins-vertical" width="16" height="12" patternUnits="userSpaceOnUse">
+      <path d="M1 3h14v6H1z" fill="#080808" stroke="#00ff00" stroke-width=".65"/>
+      <path d="M3 6h10" stroke="#ffff00" stroke-width=".7"/>
+    </pattern>
+    <pattern id="vias" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect x="4.5" y="4.5" width="3" height="3" fill="#ffff00" fill-opacity=".6"/>
+    </pattern>
+    <g id="via"><rect x="-2" y="-2" width="4" height="4" fill="#000000" stroke="currentColor" stroke-width="1"/><rect x="-.65" y="-.65" width="1.3" height="1.3" fill="currentColor"/></g>
+    <g id="cross"><path d="M-5 0H5M0-5V5" stroke="#666666" stroke-width=".7"/></g>
+  </defs>
+
+  <path fill="#000000" d="M0 0h640v560H0z"/>
+  <path fill="url(#major-grid)" opacity=".5" d="M0 0h640v560H0z"/>
+
+  <!-- Die boundary, scribe lanes and bond-pad ring. -->
+  <g stroke="#444444" stroke-width=".65">
+    <path d="M38 30h564v500H38z"/>
+    <path d="M44 36h552v488H44z" stroke-dasharray="2 5"/>
+    <path d="M52 44h536v472H52z" stroke="#00ff00" opacity=".75"/>
+    <path d="M77 69h486v422H77zM80 72h480v416H80z"/>
+  </g>
+  <rect x="84" y="48" width="468" height="16" fill="url(#pins-horizontal)"/>
+  <rect x="84" y="496" width="468" height="16" fill="url(#pins-horizontal)"/>
+  <rect x="56" y="78" width="16" height="408" fill="url(#pins-vertical)"/>
+  <rect x="568" y="78" width="16" height="408" fill="url(#pins-vertical)"/>
+  <g fill="#080808" stroke="#00ff00" stroke-width=".8">
+    <rect x="57" y="49" width="15" height="15"/>
+    <rect x="569" y="49" width="15" height="15"/>
+    <rect x="57" y="497" width="15" height="15"/>
+    <rect x="569" y="497" width="15" height="15"/>
+  </g>
+
+  <!-- Six distinct macros: standard cells, register arrays and memory. -->
+  <g stroke-width=".8">
+    <rect x="90" y="86" width="194" height="150" fill="#080808" stroke="#00ff00"/>
+    <rect x="96" y="92" width="182" height="138" fill="url(#cells-green)"/>
+    <path d="M99 97h61v60H99zM167 97h106v60H167zM99 164h82v61H99zM187 164h86v61H187z" stroke="#00ff00" opacity=".5"/>
+    <rect x="302" y="86" width="140" height="150" fill="#080808" stroke="#3355ff"/>
+    <rect x="309" y="93" width="126" height="136" fill="url(#memory)"/>
+    <path d="M351 93v136M393 93v136M309 157h126M309 165h126" stroke="#00ffff" stroke-width="1.2"/>
+    <rect x="460" y="86" width="90" height="150" fill="#080808" stroke="#ff00ff"/>
+    <rect x="466" y="93" width="78" height="136" fill="url(#cells-pink)"/>
+
+    <rect x="90" y="270" width="120" height="202" fill="#080808" stroke="#ff00ff"/>
+    <rect x="96" y="278" width="108" height="186" fill="url(#memory-pink)"/>
+    <path d="M132 278v186M168 278v186M96 334h108M96 342h108M96 400h108M96 408h108" stroke="#ff00ff" stroke-width="1.1"/>
+    <rect x="230" y="270" width="212" height="202" fill="#080808" stroke="#00ffff"/>
+    <rect x="237" y="277" width="198" height="188" fill="url(#cells-blue)"/>
+    <path d="M242 282h84v72h-84zM335 282h95v72h-95zM242 362h117v98H242zM368 362h62v98h-62z" stroke="#3355ff"/>
+    <rect x="460" y="270" width="90" height="202" fill="#080808" stroke="#00ff00"/>
+    <rect x="467" y="277" width="76" height="188" fill="url(#cells-green)"/>
+  </g>
+
+  <!-- Dense orthogonal signal routes, running on separated metal layers. -->
+  <g stroke="#ff00ff" stroke-width=".75">
+    <path d="M102 68v35h203v140h160v67h79M114 68v40h195v140h160v67h75M126 68v45h187v140h160v67h71M138 68v50h179v140h160v67h67"/>
+    <path d="M90 194h184v49h-56v229M90 200h180v47h-48v225M90 206h176v45h-40v221"/>
+    <path d="M278 226h-25v136h72v98M272 222h-24v145h72v93M266 218h-23v154h72v88"/>
+    <path d="M445 68v125h50v169h49M451 68v130h49v169h44M457 68v135h48v169h39"/>
+  </g>
+  <g stroke="#00ff00" stroke-width=".9">
+    <path d="M68 250h125V77h200v172h173M68 254h129V81h200v172h169M68 258h133V85h200v172h165"/>
+    <path d="M110 294h181v138h249M110 300h186v138h244M110 306h191v138h239"/>
+    <path d="M192 162h224v322h-98v13M192 168h220v312h-98v17M192 174h216v302h-98v21"/>
+    <path d="M537 68v48h-89v353M533 68v44h-89v357M529 68v40h-89v361"/>
+  </g>
+  <g stroke="#00ffff" stroke-width=".75">
+    <path d="M70 129h67v109h202v112h139v135M70 134h71v109h202v111h139v131M70 139h75v109h202v110h139v127"/>
+    <path d="M72 393h148V115h182v62h165M72 398h152V119h174v62h169M72 403h156V123h166v62h173"/>
+    <path d="M309 217h118v185h107M309 222h122v185h103M309 227h126v185h99"/>
+    <path d="M251 472v14h290V247h26M257 472v10h280V243h30M263 472v6h270V239h34"/>
+  </g>
+  <g stroke="#ff3333" stroke-width=".8">
+    <path d="M68 459h35V153h180v-40h146M68 454h31V149h180v-41h150M68 449h27V145h180v-42h154"/>
+    <path d="M367 65v74h-76v262h-35M371 65v78h-76v262h-39M375 65v82h-76v262h-43"/>
+    <path d="M516 496v-98h-68V154h-92M512 496v-94h-60V150h-96M508 496v-90h-52V146h-100"/>
+  </g>
+
+  <!-- Wider power straps, intersection via arrays and macro pin taps. -->
+  <g stroke="#ffff00" stroke-width="1.15">
+    <path d="M84 77h472v406H84z"/>
+    <path d="M86 262h468M286 78v404M454 78v404"/>
+    <path d="M86 266h468M290 78v404M458 78v404" opacity=".45"/>
+    <path d="M176 77v403M180 77v403M84 374h470M84 378h470" stroke-width=".7" opacity=".65"/>
+  </g>
+  <g fill="url(#vias)">
+    <rect x="273" y="249" width="30" height="30"/>
+    <rect x="441" y="249" width="30" height="30"/>
+    <rect x="165" y="363" width="30" height="24"/>
+    <rect x="273" y="363" width="30" height="24"/>
+    <rect x="441" y="363" width="30" height="24"/>
+  </g>
+  <g color="#00ffff">
+    <use href="#via" x="137" y="129"/><use href="#via" x="145" y="139"/>
+    <use href="#via" x="339" y="238"/><use href="#via" x="347" y="248"/>
+    <use href="#via" x="220" y="393"/><use href="#via" x="228" y="403"/>
+    <use href="#via" x="402" y="177"/><use href="#via" x="394" y="185"/>
+    <use href="#via" x="427" y="402"/><use href="#via" x="435" y="412"/>
+    <use href="#via" x="478" y="350"/><use href="#via" x="486" y="358"/>
+  </g>
+  <g color="#00ff00">
+    <use href="#via" x="193" y="250"/><use href="#via" x="201" y="258"/>
+    <use href="#via" x="393" y="77"/><use href="#via" x="401" y="85"/>
+    <use href="#via" x="291" y="294"/><use href="#via" x="301" y="306"/>
+    <use href="#via" x="416" y="162"/><use href="#via" x="408" y="174"/>
+    <use href="#via" x="448" y="116"/><use href="#via" x="440" y="108"/>
+  </g>
+  <g color="#ff00ff">
+    <use href="#via" x="305" y="103"/><use href="#via" x="317" y="118"/>
+    <use href="#via" x="465" y="243"/><use href="#via" x="477" y="258"/>
+    <use href="#via" x="253" y="362"/><use href="#via" x="243" y="372"/>
+    <use href="#via" x="495" y="193"/><use href="#via" x="505" y="203"/>
+  </g>
+  <g stroke="#ffff00" stroke-width=".75" opacity=".7">
+    <path d="M110 230v13m12-13v13m12-13v13m12-13v13m12-13v13m12-13v13m12-13v13m12-13v13m12-13v13m12-13v13m12-13v13m12-13v13"/>
+    <path d="M435 288h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12m-12 12h12"/>
+    <path d="M104 472v11m12-11v11m12-11v11m12-11v11m12-11v11m12-11v11m12-11v11m12-11v11"/>
+  </g>
+
+  <!-- Alignment marks and viewport corners keep the image close to an EDA workbench. -->
+  <g stroke="#777777" stroke-width=".8">
+    <path d="M19 45V16h29M592 16h29v29M19 515v29h29M592 544h29v-29"/>
+    <path d="M320 12v12M314 18h12M320 536v12M314 542h12M11 280h12M17 274v12M617 280h12M623 274v12"/>
+  </g>
+  <use href="#cross" x="29" y="86"/><use href="#cross" x="29" y="472"/>
+  <use href="#cross" x="611" y="86"/><use href="#cross" x="611" y="472"/>
+  <g fill="#00ff00">
+    <rect x="17" y="17" width="4" height="4"/><rect x="619" y="17" width="4" height="4"/>
+    <rect x="17" y="542" width="4" height="4"/><rect x="619" y="542" width="4" height="4"/>
+  </g>
+</svg>

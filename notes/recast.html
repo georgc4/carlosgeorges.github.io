@@ -1,10 +1,95 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f4f1e9"><meta name="description" content="Recast is a small rule with a lot hiding underneath it: roll letters, build a crossword, make every run a word."><title>Making a word game out of dice — Carlos Georges</title><link rel="canonical" href="https://carlosgeorges.com/notes/recast.html"><link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,500,0,0;9..144,600,0,0&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/style.css"><script defer src="/js/main.js"></script></head>
-<body class="article-page"><a class="skip-link" href="#main">Skip to content</a><header class="site-header" id="top"><div class="wrap header-inner"><a class="wordmark" href="/" aria-label="Carlos Georges, home"><span class="wordmark-mark">C<span>G</span></span><span class="wordmark-name">Carlos Georges</span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button><nav class="site-nav" id="site-nav" aria-label="Main navigation"><a href="/#work">Work</a><a href="/#notes">Notes</a><a href="/#about">About</a><a class="nav-contact" href="mailto:carlos.georges@columbia.edu">Get in touch <span aria-hidden="true">↗</span></a></nav></div></header>
-<main id="main"><div class="wrap article-top"><a class="back-link" href="/#notes">← All notes</a></div><article><header class="wrap article-hero"><span class="article-kicker">PRODUCT / 2026</span><h1>Making a word game out of dice</h1><p class="article-deck">Recast is a small rule with a lot hiding underneath it: roll letters, build a crossword, make every run a word.</p><div class="article-meta"><span>CARLOS GEORGES</span><span>PROJECT NOTE · 2026</span></div></header><div class="wrap article-layout"><div class="article-body"><p>Recast started with a question: what if a crossword were something you built from the letters you rolled? You get a set of letter dice and place them on a grid. Every horizontal and vertical run of two or more letters has to be a valid English word. That one constraint makes every placement affect the next one.</p>
-<h2>Designing the space behind the game</h2>
-<p>The iOS app is written in SwiftUI, but a lot of the work lives outside the app. I built a Python pipeline to curate words, cluster them, design dice, and check puzzle solvability before the data is bundled into the game. The app then handles placement, live validation, hints, and scoring across word quality, board geometry, and semantic coherence.</p>
-<p>There are three board sizes, free play, and a daily puzzle. I wanted a game where a clever intersection feels as good as finding a long word. The scoring system rewards both, along with compact layouts and meaningful connections between words.</p>
-<div class="article-pull">The surprising part was how much engineering it takes to make a puzzle feel simple.</div>
-<h2>Shipped, and still improving</h2>
-<p>Recast is live on the <a href="https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118" target="_blank" rel="noopener noreferrer">App Store</a>. The recent update improved battery use and the daily puzzle system, expanded the accepted dictionary, and fixed visual issues. It is a different kind of engineering project for me, but it still has the same shape: build the whole pipeline, then find every place where the pieces disagree.</p><nav class="article-footer" aria-label="Article navigation"><a href="/#notes">← All notes</a><a href="/notes/soar.html">Next note →</a></nav></div><aside class="article-rail" aria-label="Project details"><div>PROJECT STATUS<strong>Available on the App Store for iPhone.</strong></div><div>RELATED LINK<strong><a href="https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118" target="_blank" rel="noopener noreferrer">Get Recast ↗</a></strong></div><div>TOPICS<strong>iOS · puzzle design · Python</strong></div></aside></div></article></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 Carlos Georges</span><span>Built from curiosity and a lot of debugging.</span><a href="#top">Back to top ↑</a></div></footer></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>Choosing better puzzles for Recast — Carlos Georges</title>
+  <meta name="description" content="How I choose dice that support different ways to play and keep Daily puzzle data consistent.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Choosing better puzzles for Recast">
+  <meta property="og:description" content="How I choose dice that support different ways to play and keep Daily puzzle data consistent.">
+  <link rel="canonical" href="https://carlosgeorges.com/notes/recast.html">
+  <link rel="alternate" type="application/rss+xml" title="Carlos Georges — notes" href="/feed.xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/articles.css">
+  <script defer src="/js/main.js"></script>
+</head>
+<body class="article-page" id="top">
+  <div class="reading-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="/" aria-label="Carlos Georges, home"><span class="monogram" aria-hidden="true">cg<span>.</span></span><span>Carlos Georges<span class="wordmark-subtitle">Hardware &amp; software</span></span></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="/#work"><span class="nav-number" aria-hidden="true">01</span> Projects</a><a href="/#day-job"><span class="nav-number" aria-hidden="true">02</span> Intel</a><a href="/#notes"><span class="nav-number" aria-hidden="true">03</span> Notes</a><a href="/#about"><span class="nav-number" aria-hidden="true">04</span> About</a>
+        <a href="/files/Carlos_Georges_Resume_2026.pdf" target="_blank" rel="noopener" class="nav-resume">Résumé <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap article-top"><a class="back-link" href="/#notes"><span aria-hidden="true">←</span> All notes</a><span class="article-folio">NOTE 06 / 07</span></div>
+    <article>
+      <header class="wrap article-header">
+        <p class="label article-category">RECAST / PUZZLE DESIGN</p>
+        <h1>Choosing better puzzles for Recast</h1>
+        <p class="article-deck">How I choose dice that support different ways to play and keep Daily puzzle data consistent.</p>
+        <div class="article-meta"><span class="article-author">Carlos Georges</span><time datetime="2026-09-25">September 25, 2026</time><span>3 min read</span></div>
+      </header>
+      <div class="wrap article-shell">
+        <div class="article-body">
+<p>Recast gives you a set of lettered dice and asks you to arrange them into a crossword. The rules are easy to describe. Producing letters that leave room for several satisfying answers has taken much more work.</p>
+
+<p>I built the iPhone game in SwiftUI and a Python pipeline to generate its puzzle data. The pipeline works through vocabulary, letter groups, dice faces, and candidate solutions. The game scores the resulting board using its words, geometry, and semantic relationships.</p>
+
+<p>The solo game is on the App Store. Version 1.1, released in March, improved battery behavior and Daily puzzles and expanded the accepted dictionary. The curation and Daily scheduling work described below comes from subsequent development; it is ahead of the current App Store release.</p>
+
+<h2 id="three-answers-can-still-be-one-idea">Three answers can still be one idea</h2>
+
+<p>A solver can tell me that a roll is solvable. It can return several solutions. Neither result tells me very much about how different those solutions will feel.</p>
+
+<p>Suppose three boards all depend on the same long word, with a few short words rearranged around it. There are three layouts in the database, but the player is still being pushed toward one idea. Counting solutions was giving that roll too much credit.</p>
+
+<p>Rejecting repeated letters was too blunt a fix. One twelve-letter roll, <code>EPLESLPPAADA</code>, supports APPALL with SPADE and APE, LAPSED with APPLE and LAP, or APPEASE with PALLED. The repeated letters leave room for different plans. Another roll kept returning THATCH and HATCH as its main anchors. Changing the supporting words did little to change the puzzle.</p>
+
+<p>The newer curation pass looks at competitive scores, long anchors, related spellings, shared words, and board shapes. It groups close relatives and anagrams so that several versions of an idea do not count as independent strategies. Repetition can earn an exception when the stored boards provide evidence for it.</p>
+
+<h2 id="the-daily-puzzle-has-an-identity">The Daily puzzle has an identity</h2>
+
+<p>There was also a more concrete correctness problem. A scheduled Daily could retain one roll's letters while a lookup attached solutions from another. A deterministic random selection could repeat puzzles even while most of the corpus remained unused.</p>
+
+<p>The revised path makes the scheduled letters authoritative. Before using a stored solution, it checks the roll identity, letters, cell count, and board bounds. The schedule consumes the curated queue in order, then extends it from the solved database without reusing those entries.</p>
+
+<p>Updating the corpus introduced a compatibility constraint: installed apps still carry their own puzzle-space lists and Daily queues. A smaller database must continue answering those older lookups.</p>
+
+<p>The August data release reduced the corpus from 77,472 to 25,181 rolls and from about 64.5 to 22.7 MB. It kept 407 compatibility rolls so those older assets could still resolve. That data release is public; the newer app behavior still requires its own release.</p>
+
+<p>The curation rules remain heuristics. Three stored solver answers do not describe everything a person could discover, and an algorithmic label does not establish that a puzzle is fun. The next useful feedback is people playing the boards. I now have a better way to choose which boards to put in front of them.</p>
+
+<p class="article-sources">Sources: <a href="https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118">Recast on the App Store</a> · <a href="https://github.com/georgc4/recast-data/releases/tag/v2026.08.30-green-gold.2">August puzzle-data release</a>.</p>
+          <nav class="article-pagination" aria-label="Article navigation"><a class="article-back" href="/#notes"><span aria-hidden="true">←</span> All notes</a><a class="article-next" href="/notes/soar.html"><span class="label">READ NEXT</span><strong>Tracing failures in dynamic agent teams</strong><span class="article-next-arrow" aria-hidden="true">↗</span></a></nav>
+        </div>
+        <aside class="article-sidebar" aria-label="Project context">
+          <nav class="article-contents" aria-label="In this note">
+            <span class="label">IN THIS NOTE</span>
+            <ol>
+              <li><a href="#three-answers-can-still-be-one-idea">Three answers can still be one idea</a></li>
+              <li><a href="#the-daily-puzzle-has-an-identity">The Daily puzzle has an identity</a></li>
+            </ol>
+          </nav>
+          <div><span class="label">CURRENT STATE</span><strong>Solo game available on the App Store. The newer curation and scheduling work is subsequent development.</strong></div>
+          <div><span class="label">WORKING WITH</span><strong>SwiftUI · Python · solvers · scoring</strong></div>
+          <div class="article-source"><span class="label">SOURCE</span><strong><a href="https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118" target="_blank" rel="noopener noreferrer">Recast on the App Store <span aria-hidden="true">↗</span></a></strong></div>
+        </aside>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 Carlos Georges</span><a href="/feed.xml">Notes via RSS ↗</a><a href="#top">Back to top ↑</a></div></footer>
+</body>
+</html>

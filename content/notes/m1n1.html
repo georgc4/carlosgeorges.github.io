@@ -1,0 +1,15 @@
+<p>I contributed a small change to m1n1, the bootloader and experimentation environment used by Asahi Linux. It changes when a secondary CPU restores <code>CNTHCTL_EL2</code> during hypervisor initialization on Apple M3 and later systems.</p>
+
+<p>The final diff is four added lines and one removed line. The important part is the ordering those lines establish.</p>
+
+<h2>Configure the redirection first</h2>
+
+<p>On these systems, counter redirection needs to be configured and visible before writing <code>CNTHCTL_EL2</code>. The old initialization path restored that register earlier. My patch moves the write after the counter-redirection setup and places an instruction synchronization barrier, <code>isb</code>, immediately before it.</p>
+
+<pre><code>// For M3 and up, CNTHCTL_EL2 must be written after the counter redirection
+sysop("isb");
+msr(CNTHCTL_EL2, info-&gt;cnthctl);</code></pre>
+
+<p>The barrier is part of the change: it establishes the required visibility before the following register write. Moving a line of C farther down the function, by itself, doesn’t express that complete requirement.</p>
+
+<p><a href="https://github.com/AsahiLinux/m1n1/pull/624">The patch was merged</a> on July 15, 2026. Its scope is specific: secondary-CPU hypervisor initialization in m1n1 on the affected Apple systems. The result is a short piece of code where the hardware requirement, synchronization point, and register write now appear together.</p>
