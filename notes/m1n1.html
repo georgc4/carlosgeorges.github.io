@@ -46,9 +46,9 @@
         <div class="article-body">
 <p>I contributed a small change to m1n1, the bootloader and experimentation environment used by Asahi Linux. It changes when a secondary CPU restores <code>CNTHCTL_EL2</code> during hypervisor initialization on Apple M3 and later systems.</p>
 
-<p>The final diff is four added lines and one removed line. The important part is the ordering those lines establish.</p>
+<p>The patch adds four lines and removes one. It changes the order of counter-redirection setup and the <code>CNTHCTL_EL2</code> write.</p>
 
-<h2 id="configure-the-redirection-first">Configure the redirection first</h2>
+<h2 id="initialization-order">Initialization order</h2>
 
 <p>On these systems, counter redirection needs to be configured and visible before writing <code>CNTHCTL_EL2</code>. The old initialization path restored that register earlier. My patch moves the write after the counter-redirection setup and places an instruction synchronization barrier, <code>isb</code>, immediately before it.</p>
 
@@ -56,16 +56,16 @@
 sysop("isb");
 msr(CNTHCTL_EL2, info-&gt;cnthctl);</code></pre>
 
-<p>The barrier is part of the change: it establishes the required visibility before the following register write. Moving a line of C farther down the function, by itself, doesn’t express that complete requirement.</p>
+<p>The <code>isb</code> makes the preceding setup visible before the register write. Moving the C statement without the barrier would leave out that part of the requirement.</p>
 
-<p><a href="https://github.com/AsahiLinux/m1n1/pull/624">The patch was merged</a> on July 15, 2026. Its scope is specific: secondary-CPU hypervisor initialization in m1n1 on the affected Apple systems. The result is a short piece of code where the hardware requirement, synchronization point, and register write now appear together.</p>
+<p><a href="https://github.com/AsahiLinux/m1n1/pull/624">The patch was merged</a> on July 15, 2026. It applies to secondary-CPU hypervisor initialization in m1n1 on Apple M3 and later systems.</p>
           <nav class="article-pagination" aria-label="Article navigation"><a class="article-back" href="/#notes"><span aria-hidden="true">←</span> All notes</a><a class="article-next" href="/notes/autosilicon.html"><span class="label">READ NEXT</span><strong>An RTL optimization that depended on fixed-point format</strong><span class="article-next-arrow" aria-hidden="true">↗</span></a></nav>
         </div>
         <aside class="article-sidebar" aria-label="Project context">
           <nav class="article-contents" aria-label="In this note">
             <span class="label">IN THIS NOTE</span>
             <ol>
-              <li><a href="#configure-the-redirection-first">Configure the redirection first</a></li>
+              <li><a href="#initialization-order">Initialization order</a></li>
             </ol>
           </nav>
           <div><span class="label">CURRENT STATE</span><strong>Merged into AsahiLinux/m1n1 on July 15, 2026.</strong></div>

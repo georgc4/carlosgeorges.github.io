@@ -1,31 +1,31 @@
-<p>SOAR started with a question: given a goal and a budget, could a group of agents decide how to organize its own work? The runtime lets a parent create workers, assign tasks, inspect progress, collect results, and terminate a branch. The structure develops as the task runs.</p>
+<p>SOAR is a research prototype for agent teams that decide how to divide work while a task is running. A parent agent can create workers, assign tasks, inspect progress, collect results, and terminate a branch. The team structure can change during the run.</p>
 
-<p>I wanted to explore that with actual execution. SOAR tracks resource use, evaluates outputs with critics, and can try to discover or build a missing tool. A failure can cause a retry, a change in capabilities, or an escalation to the parent.</p>
+<p>The runtime tracks resource use, evaluates outputs with critics, and can try to discover or build a missing tool. A failure can cause a retry, a change in capabilities, or an escalation to the parent.</p>
 
-<p>That makes for an interesting architecture. It also creates a lot of ways for a run to fail before the architecture gets a fair test.</p>
+<p>When I ran evaluations, I found failures in the runtime itself that I needed to understand before judging the agents’ answers.</p>
 
-<h2>A worker can exist without doing any work</h2>
+<h2>Workers failing before their first model call</h2>
 
-<p>During an exploratory GAIA benchmark run, the root created child agents that immediately failed. Their records showed failed tasks and no model spending. The parent had assembled a team, but some of its workers never made a model call.</p>
+<p>During an exploratory GAIA benchmark run, the root created child agents that immediately failed. Their records showed failed tasks and no model spending. Some workers never made a model call.</p>
 
-<p>The failure analysis traced this to exception handling. The provider wrapper handled a few expected errors. Other exceptions could reach a broad handler that recorded failure without preserving enough information about what happened. Looking only at the final answer would have made this look like a reasoning failure.</p>
+<p>The failure analysis traced this to exception handling. The provider wrapper handled a few expected errors, but other exceptions could reach a broad handler that recorded failure without enough detail. The final answer alone wouldn’t show that the worker failed before it started.</p>
 
-<p>Search had its own problem. A provider returned errors and the tool eventually became unusable. There was no effective automatic fallback. Some runs continued attempting a research task after losing the capability they needed to complete it.</p>
+<p>Search failed separately. A provider returned errors until the tool became unusable, and there was no effective automatic fallback. Some runs continued the research task without working search.</p>
 
-<h2>Record the transitions</h2>
+<h2>Event traces</h2>
 
-<p>The useful unit of observation is each change in the run: an agent spawned, a task delegated, a tool failed, a critic rejected an answer, or a budget was reclaimed. SOAR records typed events in SQLite and produces readable traces of model calls, tool use, and agent activity.</p>
+<p>SOAR records events when an agent spawns, a task is delegated, a tool fails, a critic rejects an answer, or a budget is reclaimed. The events go into SQLite and produce readable traces of model calls, tool use, and agent activity.</p>
 
-<p>This lets me ask more specific questions. Did the worker ever start? Did it have the necessary tool? Did it return an answer that the critic rejected? Did the parent receive the failure? Those cases need different fixes.</p>
+<p>With the traces I can tell whether a worker started, whether it had the necessary tool, whether a critic rejected its answer, and whether the parent received a failure. Each case needs a different fix.</p>
 
-<p>Health also has to come from observed behavior. A worker that keeps failing should become visibly degraded; its own description of how well it is doing is insufficient. Cancellation and budget reclamation matter for the same reason. The runtime has to account for the work it started.</p>
+<p>I also want health status to reflect observed behavior. A worker that keeps failing should show as degraded regardless of its own status report. The runtime needs to record cancellation and reclaim the budget for stopped work.</p>
 
-<h2>Be careful with the score</h2>
+<h2>Small benchmark results</h2>
 
 <p>In one small Level 2 run, SOAR answered 11 of 15 questions correctly. The stored single-agent comparison passed eight exact-match checks; another answer had the correct substance but failed on spacing after a semicolon. The written summary counted that answer as correct. Both approaches failed all five Level 3 questions in the corresponding runs.</p>
 
-<p>That is enough evidence to investigate individual successes and failures. It is not enough to establish that the organizational approach is generally better. The comparison also needs consistent tools, scoring, resource limits, and repeated runs.</p>
+<p>These are small runs. I can use them to investigate specific successes and failures, but I can’t draw a general performance claim from them. A stronger comparison would need consistent tools, scoring, resource limits, and repeated runs.</p>
 
-<p>Critics have limits too. A citation check can find a missing reference without establishing that a cited claim is true. A model judging another model can accept confident mistakes. SOAR is a research prototype, and its evaluation needs scrutiny alongside its answers. The failure traces have been useful precisely because they make those questions concrete.</p>
+<p>The critics also need evaluation. A citation check can find a missing reference without checking the cited claim, and a model judging another model can accept a confident mistake. SOAR is still a research prototype. The traces help me inspect its answers and failures in detail.</p>
 
 <p class="article-sources">Sources: <a href="https://github.com/georgc4/soar">SOAR repository</a> · <a href="https://github.com/georgc4/soar/blob/main/docs/gaia-failure-analysis.md">GAIA failure analysis</a> · <a href="https://github.com/georgc4/soar/blob/main/docs/observability.md">Observability design</a>.</p>

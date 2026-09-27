@@ -6,14 +6,14 @@
     <description>Hardware, Linux, and the details worth writing down.</description>
     <language>en-us</language>
     <item>
-      <title>Linux printed “ready.” The shell still didn’t work.</title>
+      <title>Debugging a stuck Linux shell on my RV32 SoC</title>
       <link>https://carlosgeorges.com/notes/linux-from-rtl.html</link>
       <guid>https://carlosgeorges.com/notes/linux-from-rtl.html</guid>
       <description>A CSR write latched a live interrupt bit and left the shell stuck. I fixed it and checked the result over UART.</description>
       <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>A smaller TLB made my Linux machine slower.</title>
+      <title>TLB area and boot time on my RV32 SoC</title>
       <link>https://carlosgeorges.com/notes/smaller-tlb.html</link>
       <guid>https://carlosgeorges.com/notes/smaller-tlb.html</guid>
       <description>An 8-entry TLB used 11.5% less mapped cell area than the 16-entry version, but the same run took about 32% more cycles.</description>

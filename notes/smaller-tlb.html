@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#000000">
-  <title>A smaller TLB made my Linux machine slower. — Carlos Georges</title>
+  <title>TLB area and boot time on my RV32 SoC — Carlos Georges</title>
   <meta name="description" content="An 8-entry TLB used 11.5% less mapped cell area than the 16-entry version, but the same run took about 32% more cycles.">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="A smaller TLB made my Linux machine slower.">
+  <meta property="og:title" content="TLB area and boot time on my RV32 SoC">
   <meta property="og:description" content="An 8-entry TLB used 11.5% less mapped cell area than the 16-entry version, but the same run took about 32% more cycles.">
   <link rel="canonical" href="https://carlosgeorges.com/notes/smaller-tlb.html">
   <link rel="alternate" type="application/rss+xml" title="Carlos Georges — notes" href="/feed.xml">
@@ -38,17 +38,17 @@
     <article>
       <header class="wrap article-header">
         <p class="label article-category">HARDWARE / TRADEOFFS</p>
-        <h1>A smaller TLB made my Linux machine slower.</h1>
+        <h1>TLB area and boot time on my RV32 SoC</h1>
         <p class="article-deck">An 8-entry TLB used 11.5% less mapped cell area than the 16-entry version, but the same run took about 32% more cycles.</p>
         <div class="article-meta"><span class="article-author">Carlos Georges</span><time datetime="2026-09-25">September 25, 2026</time><span>3 min read</span></div>
       </header>
       <div class="wrap article-shell">
         <div class="article-body">
-<p>A Linux-capable core is an awkward thing to squeeze into a small chip allocation. My RV32 SoC could boot and run a program in simulation, but the first physical-design attempt ran out of room during detailed placement. The next question was which hardware to shrink, and what that would cost when Linux ran.</p>
+<p>My RV32 SoC boots Linux and runs a program in simulation, but the first physical-design attempt ran out of room during detailed placement. I started looking for area reductions and measuring what they did to the Linux run.</p>
 
-<p>The Sv32 translation unit was a substantial part of the design. Its 16-entry TLB stores recent virtual-to-physical translations so the machine can avoid walking page tables for every access. In the baseline mapped netlist, the adapter occupied about 63,361 µm² of standard cells. That made it a useful place to start.</p>
+<p>The Sv32 translation unit was a substantial part of the design. Its 16-entry TLB stores recent virtual-to-physical translations so the machine can avoid walking page tables for every access. In the baseline mapped netlist, the adapter occupied about 63,361 µm² of standard cells, so I started there.</p>
 
-<h2 id="half-the-entries-a-longer-boot">Half the entries, a longer boot</h2>
+<h2 id="comparing-16-and-8-entries">Comparing 16 and 8 entries</h2>
 
 <p>I parameterized the TLB and measured each version with the same Yosys/SKY130 mapping screen. Then I ran the full Linux image through the real serial-memory path and waited for BusyBox ash to execute the acceptance program.</p>
 
@@ -61,32 +61,32 @@
   </tbody>
 </table></div>
 
-<p>The smaller TLB saved <strong>11.5% of mapped cell area</strong>, while the accepted boot and program run took about <strong>32% more cycles</strong>. Both completed the same functional gate. Those are the two numbers I need together when deciding whether the space is worth it.</p>
+<p>The smaller TLB saved <strong>11.5% of mapped cell area</strong>, while the accepted boot and program run took about <strong>32% more cycles</strong>. Both completed the same shell-and-program test. I need to account for both results when choosing a configuration.</p>
 
-<p>Translation misses are especially interesting here because page-table walks share the same serial PSRAM path as instruction fetches and data accesses. A full-word quad read already takes 56 core cycles in serial shift states, before the rest of the transaction overhead. The machine has no instruction cache. Extra memory work has somewhere expensive to go.</p>
+<p>A TLB miss triggers a page-table walk over the same serial PSRAM path used for instructions and data. A full-word quad read already takes 56 core cycles in serial shift states, before the rest of the transaction overhead. The machine also has no instruction cache, so extra memory accesses add up quickly.</p>
 
-<h2 id="sharing-hardware-has-a-price-too">Sharing hardware has a price, too</h2>
+<h2 id="other-area-reductions">Other area reductions</h2>
 
 <p>I also tried a four-entry TLB with shared address-space context, shared division logic, and a single register-file read port. The <a href="https://github.com/georgc4/rv32-linux-soc/commit/32fa3135b7d04ffde5a0b4f424d9d42f5a9fc43a">read-port change</a> replaces two read muxes with one and adds an operand-read cycle to the core’s state machine. The focused core test grew from 795 to 867 cycles for the same 85 retired instructions.</p>
 
-<p>The smallest screened variant cut mapped area by 23.7%. Its full Linux run hadn’t reached userspace within the twenty-billion-cycle limit. Several four-entry variants did reach the shell, but timed out before the acceptance program returned. I’m keeping those outcomes distinct: reaching a timeout after a working shell doesn’t establish a functional bug, and it doesn’t satisfy the complete gate either.</p>
+<p>The smallest screened variant cut mapped area by 23.7%. Its full Linux run hadn’t reached userspace within the twenty-billion-cycle limit. Several four-entry variants did reach the shell, but timed out before the acceptance program returned. Those timeouts don’t establish a functional bug. They also don’t count as a passing shell-and-program run.</p>
 
-<h2 id="the-layout-still-has-to-fit">The layout still has to fit</h2>
+<h2 id="physical-implementation">Physical implementation</h2>
 
 <figure><img src="/images/projects/rv32-placement-density.png" alt="Global-placement density heatmap for the initial RV32 8 by 2 physical attempt" width="2380" height="595" loading="lazy"><figcaption>Approximate cell density after global placement in the initial 8×2 physical attempt. Detailed placement later failed; this is an intermediate result.</figcaption></figure>
 
-<p>Mapped cell area is an early measurement. Placement repair, clock distribution, hold fixing, and routing add their own constraints. Some of the smaller variants got as far as global routing, then failed placement during antenna repair. An official physical run inserted thousands of hold buffers before legalization failed. There’s still no routed SoC GDS from this campaign.</p>
+<p>Mapped cell area is an early measurement. Placement repair, clock distribution, hold fixing, and routing add their own constraints. Some of the smaller variants got as far as global routing, then failed placement during antenna repair. An official physical run inserted thousands of hold buffers before legalization failed. This campaign still hasn’t produced a routed SoC GDS.</p>
 
-<p>The <a href="https://github.com/georgc4/rv32-linux-soc/blob/d514b60a9cb7759708655aba5d0c67d4ea8b261d/experiments/RESULTS.md">experiment results</a> keep the area, physical outcome, and Linux outcome beside each other. I’m using that record to choose the next design point: one that fits physically and still gets through a real shell interaction.</p>
+<p>The <a href="https://github.com/georgc4/rv32-linux-soc/blob/d514b60a9cb7759708655aba5d0c67d4ea8b261d/experiments/RESULTS.md">experiment results</a> record mapped area, physical outcome, and Linux outcome together. I’m using those measurements to choose a version that can fit and still run the shell and program.</p>
           <nav class="article-pagination" aria-label="Article navigation"><a class="article-back" href="/#notes"><span aria-hidden="true">←</span> All notes</a><a class="article-next" href="/notes/ps4-linux.html"><span class="label">READ NEXT</span><strong>GPU inference on a PS4</strong><span class="article-next-arrow" aria-hidden="true">↗</span></a></nav>
         </div>
         <aside class="article-sidebar" aria-label="Project context">
           <nav class="article-contents" aria-label="In this note">
             <span class="label">IN THIS NOTE</span>
             <ol>
-              <li><a href="#half-the-entries-a-longer-boot">Half the entries, a longer boot</a></li>
-              <li><a href="#sharing-hardware-has-a-price-too">Sharing hardware has a price, too</a></li>
-              <li><a href="#the-layout-still-has-to-fit">The layout still has to fit</a></li>
+              <li><a href="#comparing-16-and-8-entries">Comparing 16 and 8 entries</a></li>
+              <li><a href="#other-area-reductions">Other area reductions</a></li>
+              <li><a href="#physical-implementation">Physical implementation</a></li>
             </ol>
           </nav>
           <div><span class="label">CURRENT STATE</span><strong>Both 16- and 8-entry variants pass the shell/program gate. No routed SoC GDS from the physical campaign.</strong></div>

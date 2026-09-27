@@ -44,33 +44,33 @@
       </header>
       <div class="wrap article-shell">
         <div class="article-body">
-<p>Recast gives you a set of lettered dice and asks you to arrange them into a crossword. The rules are easy to describe. Producing letters that leave room for several satisfying answers has taken much more work.</p>
+<p>In Recast, you roll letter dice and arrange them into a crossword. I’ve been working on how to choose dice that give players more than one reasonable way to build a board.</p>
 
 <p>I built the iPhone game in SwiftUI and a Python pipeline to generate its puzzle data. The pipeline works through vocabulary, letter groups, dice faces, and candidate solutions. The game scores the resulting board using its words, geometry, and semantic relationships.</p>
 
-<p>The solo game is on the App Store. Version 1.1, released in March, improved battery behavior and Daily puzzles and expanded the accepted dictionary. The curation and Daily scheduling work described below comes from subsequent development; it is ahead of the current App Store release.</p>
+<p>The solo game is on the App Store. Version 1.1, released in March, improved battery behavior and Daily puzzles and expanded the accepted dictionary. The curation and scheduling changes below are newer development work and are not part of that App Store release.</p>
 
-<h2 id="three-answers-can-still-be-one-idea">Three answers can still be one idea</h2>
+<h2 id="choosing-rolls-with-different-solutions">Choosing rolls with different solutions</h2>
 
-<p>A solver can tell me that a roll is solvable. It can return several solutions. Neither result tells me very much about how different those solutions will feel.</p>
+<p>The solver can tell me whether a roll is solvable and return several boards. I also want to know whether those boards require different approaches from the player.</p>
 
-<p>Suppose three boards all depend on the same long word, with a few short words rearranged around it. There are three layouts in the database, but the player is still being pushed toward one idea. Counting solutions was giving that roll too much credit.</p>
+<p>Sometimes three boards all depend on the same long word, with a few short words rearranged around it. The database counts three layouts, but the player is still likely to find the same long word in each. A simple solution count overrates that roll.</p>
 
-<p>Rejecting repeated letters was too blunt a fix. One twelve-letter roll, <code>EPLESLPPAADA</code>, supports APPALL with SPADE and APE, LAPSED with APPLE and LAP, or APPEASE with PALLED. The repeated letters leave room for different plans. Another roll kept returning THATCH and HATCH as its main anchors. Changing the supporting words did little to change the puzzle.</p>
+<p>I first tried rejecting rolls with repeated letters, but that removed some good ones. The twelve-letter roll <code>EPLESLPPAADA</code> supports APPALL with SPADE and APE, LAPSED with APPLE and LAP, or APPEASE with PALLED. Those are different ways to use the same letters. Another roll kept returning THATCH and HATCH as its main anchors; changing the shorter words did little to change how it played.</p>
 
-<p>The newer curation pass looks at competitive scores, long anchors, related spellings, shared words, and board shapes. It groups close relatives and anagrams so that several versions of an idea do not count as independent strategies. Repetition can earn an exception when the stored boards provide evidence for it.</p>
+<p>The newer curation pass looks at competitive scores, long anchor words, related spellings, shared words, and board shapes. It groups close relatives and anagrams so that similar boards count together. I still allow repeated letters when the stored boards show useful variety.</p>
 
-<h2 id="the-daily-puzzle-has-an-identity">The Daily puzzle has an identity</h2>
+<h2 id="daily-puzzle-scheduling">Daily puzzle scheduling</h2>
 
-<p>There was also a more concrete correctness problem. A scheduled Daily could retain one roll's letters while a lookup attached solutions from another. A deterministic random selection could repeat puzzles even while most of the corpus remained unused.</p>
+<p>I also found a scheduling bug: a Daily puzzle could keep the letters from one roll while a lookup attached solutions from another. The deterministic random selection could repeat puzzles while much of the corpus remained unused.</p>
 
-<p>The revised path makes the scheduled letters authoritative. Before using a stored solution, it checks the roll identity, letters, cell count, and board bounds. The schedule consumes the curated queue in order, then extends it from the solved database without reusing those entries.</p>
+<p>The revised path uses the scheduled letters as the source of truth. Before using a stored solution, it checks the roll identity, letters, cell count, and board bounds. The schedule consumes the curated queue in order, then extends it from the solved database without reusing those entries.</p>
 
-<p>Updating the corpus introduced a compatibility constraint: installed apps still carry their own puzzle-space lists and Daily queues. A smaller database must continue answering those older lookups.</p>
+<p>Installed apps still carry older puzzle-space lists and Daily queues, so a smaller database must continue answering those older lookups.</p>
 
-<p>The August data release reduced the corpus from 77,472 to 25,181 rolls and from about 64.5 to 22.7 MB. It kept 407 compatibility rolls so those older assets could still resolve. That data release is public; the newer app behavior still requires its own release.</p>
+<p>The August data release reduced the corpus from 77,472 to 25,181 rolls and from about 64.5 to 22.7 MB. It kept 407 compatibility rolls so those older assets could still resolve. That data release is public; the newer app behavior still needs its own release.</p>
 
-<p>The curation rules remain heuristics. Three stored solver answers do not describe everything a person could discover, and an algorithmic label does not establish that a puzzle is fun. The next useful feedback is people playing the boards. I now have a better way to choose which boards to put in front of them.</p>
+<p>The curation rules are still heuristics. Stored solver answers can’t describe everything a player might find, and the rules can’t tell me whether a puzzle is fun. I need more feedback from people playing the boards.</p>
 
 <p class="article-sources">Sources: <a href="https://apps.apple.com/us/app/recast-dice-word-puzzle/id6759939118">Recast on the App Store</a> · <a href="https://github.com/georgc4/recast-data/releases/tag/v2026.08.30-green-gold.2">August puzzle-data release</a>.</p>
           <nav class="article-pagination" aria-label="Article navigation"><a class="article-back" href="/#notes"><span aria-hidden="true">←</span> All notes</a><a class="article-next" href="/notes/soar.html"><span class="label">READ NEXT</span><strong>Tracing failures in dynamic agent teams</strong><span class="article-next-arrow" aria-hidden="true">↗</span></a></nav>
@@ -79,8 +79,8 @@
           <nav class="article-contents" aria-label="In this note">
             <span class="label">IN THIS NOTE</span>
             <ol>
-              <li><a href="#three-answers-can-still-be-one-idea">Three answers can still be one idea</a></li>
-              <li><a href="#the-daily-puzzle-has-an-identity">The Daily puzzle has an identity</a></li>
+              <li><a href="#choosing-rolls-with-different-solutions">Choosing rolls with different solutions</a></li>
+              <li><a href="#daily-puzzle-scheduling">Daily puzzle scheduling</a></li>
             </ol>
           </nav>
           <div><span class="label">CURRENT STATE</span><strong>Solo game available on the App Store. The newer curation and scheduling work is subsequent development.</strong></div>

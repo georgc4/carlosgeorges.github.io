@@ -44,33 +44,33 @@
       </header>
       <div class="wrap article-shell">
         <div class="article-body">
-<p>The first useful result from AutoSilicon was a smaller motor-control circuit. The more interesting part came afterward, when an optimization that worked for one fixed-point format stopped making sense for the others.</p>
+<p>AutoSilicon produced a smaller motor-control circuit in one synthesis run. Later, I found that one of its optimizations assumed a particular fixed-point format. The RTL was parameterized, so I had to revisit that change.</p>
 
-<p>AutoSilicon lets a coding agent modify SystemVerilog, then checks the result with Verilator, cocotb, and Yosys targeting Sky130. Each experiment gets a commit and a record of its measurements. A change survives only if it passes the checks and improves the area/frequency tradeoff. Otherwise the harness reverts it.</p>
+<p>AutoSilicon lets a coding agent modify SystemVerilog, then checks the result with Verilator, cocotb, and Yosys targeting Sky130. Each experiment gets a commit and a record of its measurements. The harness keeps a change if it passes the checks and improves the area/frequency tradeoff; otherwise, it reverts it.</p>
 
-<h2 id="what-the-first-run-found">What the first run found</h2>
+<h2 id="initial-synthesis-results">Initial synthesis results</h2>
 
 <p>The initial design was a field-oriented motor-control coprocessor: coordinate transforms, a CORDIC, PI controllers, and PWM generation. Claude provided substantial help with the math, microarchitecture, and RTL. My part was directing the project, specifying the work, and shaping the verification strategy.</p>
 
-<p>In a recorded March run, 19 experiments produced 13 accepted changes. One revision reduced estimated cell area from 215,164 to 191,487 µm² while increasing estimated maximum frequency from 171.2 to 187.3 MHz. That is about 11% less area and 9.4% more frequency at the same historical comparison point.</p>
+<p>In a recorded March run, 19 experiments produced 13 accepted changes. One revision reduced estimated cell area from 215,164 to 191,487 µm² and increased estimated maximum frequency from 171.2 to 187.3 MHz. That is about 11% less area and 9.4% more frequency in that comparison.</p>
 
-<p>These are synthesis estimates against that initial design. They are not measurements from fabricated silicon or a completed place-and-route flow. There were also other points on the frontier with slightly higher frequency and larger area.</p>
+<p>These are synthesis estimates against the initial design. They are not measurements from fabricated silicon or a completed place-and-route flow. Other revisions had slightly higher estimated frequency and larger area.</p>
 
-<p>Some changes were straightforward once the agent found them. Multiplication by 1023 became a shift and subtraction: <code>(v &lt;&lt; 10) - v</code>. Registers that copied values already held stable by the controller could be removed. The interesting work was checking whether the assumptions behind each simplification actually held.</p>
+<p>The agent replaced multiplication by 1023 with a shift and subtraction, <code>(v &lt;&lt; 10) - v</code>, and removed registers that copied values already held stable by the controller. I still had to check the assumptions behind those changes in the relevant configurations.</p>
 
-<h2 id="a-constant-is-only-constant-within-its-format">A constant is only constant within its format</h2>
+<h2 id="the-fixed-point-format-changed-the-coefficient">The fixed-point format changed the coefficient</h2>
 
-<p>One experiment replaced a Clarke-transform multiplier with shifts and adds. In the tested representation, the coefficient was 18,919, which can be written as <code>2¹⁴ + 2¹¹ + 2⁹ − 2⁵ + 2³ − 1</code>. The resulting circuit was smaller.</p>
+<p>One experiment replaced a Clarke-transform multiplier with shifts and adds. In the tested representation, the coefficient was 18,919, which can be written as <code>2¹⁴ + 2¹¹ + 2⁹ − 2⁵ + 2³ − 1</code>. The resulting circuit was smaller in that configuration.</p>
 
-<p>But the RTL was parameterized. Changing the fractional width changes the integer representation of the coefficient. The hard-coded shift sequence still multiplied by 18,919. It did not automatically become the right coefficient for another format.</p>
+<p>The RTL was parameterized, though. Changing the fractional width changes the integer representation of the coefficient. The hard-coded shift sequence still multiplied by 18,919, which was wrong for other formats.</p>
 
-<p>A later revision restored the multiply and selected appropriately scaled constants. The configuration sweep also exposed precision failures: the reported set had to exclude combinations that did not pass verification. A successful experiment had established something useful about one configuration, with a narrower scope than the parameterized module suggested.</p>
+<p>A later revision restored the multiply and selected appropriately scaled constants. The configuration sweep also exposed precision failures. I excluded combinations that did not pass verification from the reported results. The earlier optimization had only been checked for a narrower set of configurations.</p>
 
-<h2 id="the-harness-needed-engineering-too">The harness needed engineering too</h2>
+<h2 id="changes-to-the-experiment-harness">Changes to the experiment harness</h2>
 
-<p>The history also includes less glamorous repairs: preserving results across reverts, handling interrupted subprocesses, and fixing a scope check that accidentally included uncommitted working files. Those details determine whether a long run leaves evidence I can use.</p>
+<p>I also fixed the harness to preserve results across reverts, handle interrupted subprocesses, and keep a scope check from including uncommitted working files. Those fixes make the experiment record more reliable.</p>
 
-<p>I want to extend this to more designs and eventually physical implementation. For now, the useful outcome is a working experiment loop, some concrete RTL improvements, and a much clearer idea of what each measurement does and does not establish.</p>
+<p>I’d like to try more designs and eventually run the flow through physical implementation. For now, AutoSilicon has a working experiment loop and several RTL changes measured in synthesis. The fixed-point case is a reminder to check every supported configuration before treating an optimization as general.</p>
 
 <p class="article-sources">Sources: <a href="https://github.com/georgc4/autosilicon">AutoSilicon repository, recorded results, and methodology</a>.</p>
           <nav class="article-pagination" aria-label="Article navigation"><a class="article-back" href="/#notes"><span aria-hidden="true">←</span> All notes</a><a class="article-next" href="/notes/recast.html"><span class="label">READ NEXT</span><strong>Choosing better puzzles for Recast</strong><span class="article-next-arrow" aria-hidden="true">↗</span></a></nav>
@@ -79,9 +79,9 @@
           <nav class="article-contents" aria-label="In this note">
             <span class="label">IN THIS NOTE</span>
             <ol>
-              <li><a href="#what-the-first-run-found">What the first run found</a></li>
-              <li><a href="#a-constant-is-only-constant-within-its-format">A constant is only constant within its format</a></li>
-              <li><a href="#the-harness-needed-engineering-too">The harness needed engineering too</a></li>
+              <li><a href="#initial-synthesis-results">Initial synthesis results</a></li>
+              <li><a href="#the-fixed-point-format-changed-the-coefficient">The fixed-point format changed the coefficient</a></li>
+              <li><a href="#changes-to-the-experiment-harness">Changes to the experiment harness</a></li>
             </ol>
           </nav>
           <div><span class="label">CURRENT STATE</span><strong>Working RTL optimization harness. Historical synthesis results are bounded to verified configurations.</strong></div>

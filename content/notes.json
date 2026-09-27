@@ -1,7 +1,7 @@
 [
   {
     "slug": "linux-from-rtl",
-    "title": "Linux printed “ready.” The shell still didn’t work.",
+    "title": "Debugging a stuck Linux shell on my RV32 SoC",
     "deck": "A CSR write latched a live interrupt bit and left the shell stuck. I fixed it and checked the result over UART.",
     "category": "RISC-V / DEBUGGING",
     "topic": "systems",
@@ -14,7 +14,7 @@
   },
   {
     "slug": "smaller-tlb",
-    "title": "A smaller TLB made my Linux machine slower.",
+    "title": "TLB area and boot time on my RV32 SoC",
     "deck": "An 8-entry TLB used 11.5% less mapped cell area than the 16-entry version, but the same run took about 32% more cycles.",
     "category": "HARDWARE / TRADEOFFS",
     "topic": "systems",

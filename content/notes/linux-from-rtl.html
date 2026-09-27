@@ -1,28 +1,28 @@
-<p>I’m building an original RV32 SoC that boots Linux from external flash into external PSRAM. The eventual target is a Tiny Tapeout chip with a UART shell and a small digit-classification program. Right now, the useful result is in RTL simulation: Linux boots, BusyBox ash accepts a command over the UART, and a separate RISC-V program runs.</p>
+<p>I’m building an RV32 SoC that boots Linux from external flash into external PSRAM. I’d eventually like to put it on a Tiny Tapeout chip and run a UART shell and a small digit-classification program. So far, the result is in RTL simulation: Linux boots, BusyBox ash accepts a UART command, and a separate RISC-V program runs.</p>
 
-<p>Getting to that last sentence took another round of debugging after Linux had already printed <code>RV32 Linux userspace ready</code>.</p>
+<p>Linux printed <code>RV32 Linux userspace ready</code> before the shell actually worked. I had to debug another interrupt problem to get from that message to an interactive prompt.</p>
 
-<h2>The machine underneath Linux</h2>
+<h2>What’s in the SoC</h2>
 
 <p>The project includes the CPU, integer multiply/divide and atomic operations, privilege and trap handling, an Sv32 address-translation unit, serial memory controllers, a UART, a timer, and an interrupt controller. The software side includes the boot ROM, M-mode SBI firmware, device tree, Linux image, and BusyBox initramfs.</p>
 
-<p>The full simulation starts from reset and transfers the image through a modeled NOR chip and four PSRAM chips. The serial-memory RTL drives the modeled pins, including the quad-lane transfers. That means Linux exercises the memory protocol as well as the CPU and MMU. It also makes a boot expensive: the accepted baseline needed a little over thirteen billion simulated core cycles.</p>
+<p>The full simulation starts from reset and transfers the image through a modeled NOR chip and four PSRAM chips. The serial-memory RTL drives the modeled pins, including the quad-lane transfers. Linux therefore exercises the memory protocol as well as the CPU and MMU. The accepted baseline needed a little over thirteen billion simulated core cycles to boot and run the acceptance program.</p>
 
-<h2>The interrupt that wouldn’t go away</h2>
+<h2>The interrupt loop</h2>
 
-<p>The first longer acceptance run reached the userspace marker and then got stuck in a UART/interrupt-controller loop. I added proper acknowledgement of the UART’s transmit-empty interrupt. The next full run reproduced the loop.</p>
+<p>The first full acceptance run reached the userspace message and then got stuck in a UART/interrupt-controller loop. I added acknowledgement of the UART’s transmit-empty interrupt, but the next full run got stuck in the same place.</p>
 
 <p>The remaining bug was in the CPU’s interrupt-pending CSRs. Reading <code>mip</code> or <code>sip</code> combines software-pending state with live interrupt inputs. My read/modify/write path used that combined value when updating the software state. If the external interrupt was high during the update, the write copied it into the software-pending register. The live interrupt could disappear while the copied bit stayed set.</p>
 
-<p>The <a href="https://github.com/georgc4/rv32-linux-soc/commit/5e1db86144952bfb0c27b5899ec71001c242e20a">fix separates the software update from the live readback</a>. A directed regression reproduces the latch on the previous RTL and passes with the correction. Then came the longer check: boot the actual image again and use the shell.</p>
+<p>The <a href="https://github.com/georgc4/rv32-linux-soc/commit/5e1db86144952bfb0c27b5899ec71001c242e20a">fix separates the software update from the live readback</a>. A directed regression reproduces the latch on the previous RTL and passes with the correction. I then booted the full image again to check whether the shell worked.</p>
 
-<h2>Twenty-two bytes through the UART</h2>
+<h2>Checking the shell over UART</h2>
 
 <p>The acceptance test now waits for the interactive ash prompt, sends <code>/bin/acceptance_smoke</code> as real UART RX frames, and waits for the program’s output. The UART has no RX FIFO, so the harness waits for Linux to consume each byte.</p>
 
 <pre><code>ASH&gt; /bin/acceptance_smoke
 ASH_PROGRAM_OK</code></pre>
 
-<p>The accepted run consumed all 22 command bytes and printed the result at cycle <strong>13,010,943,367</strong>. The <a href="https://github.com/georgc4/rv32-linux-soc/commit/14ad34905263d304b7d16d21bc69d6d8eb9e3188">recorded result</a> ties that run to the RTL, simulator, and flash-image hashes. That covers much more of the machine than stopping at an init message: receive interrupts, shell input, process execution, and output all have to work together.</p>
+<p>The accepted run consumed all 22 command bytes and printed the result at cycle <strong>13,010,943,367</strong>. The <a href="https://github.com/georgc4/rv32-linux-soc/commit/14ad34905263d304b7d16d21bc69d6d8eb9e3188">recorded result</a> includes the RTL, simulator, and flash-image hashes. The test exercises receive interrupts, shell input, process execution, and output.</p>
 
-<p>There’s still plenty to do. This is a simulated machine, and the physical-design runs haven’t produced a routed SoC. Full ISA compliance, board validation, and the classifier running on fabricated silicon are also open. The shell-and-program result gives me a concrete acceptance gate while I work on the area and boot-time tradeoffs.</p>
+<p>This is still a simulated machine. The physical-design runs haven’t produced a routed SoC, and I haven’t done full ISA compliance or board validation. The digit classifier hasn’t run on fabricated silicon. I’m using the shell-and-program test as an acceptance check while I work on area and boot time.</p>
